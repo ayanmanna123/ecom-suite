@@ -4,6 +4,7 @@ interface User {
   _id: string;
   email: string;
   name?: string;
+  role: 'customer' | 'seller';
 }
 
 interface AuthContextType {
@@ -11,7 +12,7 @@ interface AuthContextType {
   token: string | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string, name: string) => Promise<void>;
+  register: (email: string, password: string, name: string, role?: 'customer' | 'seller') => Promise<void>;
   signOut: () => void;
 }
 
@@ -48,11 +49,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.setItem('user', JSON.stringify(data.user));
   };
 
-  const register = async (email: string, password: string, name: string) => {
+  const register = async (email: string, password: string, name: string, role: 'customer' | 'seller' = 'customer') => {
     const response = await fetch(`${API_URL}/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password, name }),
+      body: JSON.stringify({ email, password, name, role }),
     });
     
     const data = await response.json();

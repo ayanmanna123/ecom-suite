@@ -1,7 +1,7 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Search, SlidersHorizontal, X } from "lucide-react";
-import { products, categories } from "@/data/products";
+import { Search, SlidersHorizontal, X, Loader2 } from "lucide-react";
+import { Product, categories } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
 import Navbar from "@/components/Navbar";
 import CartDrawer from "@/components/CartDrawer";
@@ -9,13 +9,33 @@ import CartDrawer from "@/components/CartDrawer";
 const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const categoryParam = searchParams.get("category") || "All";
+  const [productsList, setProductsList] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(categoryParam);
   const [sortBy, setSortBy] = useState("featured");
   const [showFilters, setShowFilters] = useState(false);
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/products");
+        const data = await response.json();
+        if (response.ok) {
+          setProductsList(data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
   const filteredProducts = useMemo(() => {
-    let result = [...products];
+    let result = [...productsList];
 
     if (selectedCategory !== "All") {
       result = result.filter((p) => p.category === selectedCategory);
@@ -127,10 +147,14 @@ const Products = () => {
         </div>
 
         {/* Product Grid */}
-        {filteredProducts.length > 0 ? (
+        {loading ? (
+          <div className="flex justify-center py-20">
+            <Loader2 className="animate-spin text-primary" size={40} />
+          </div>
+        ) : filteredProducts.length > 0 ? (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8">
             {filteredProducts.map((product, i) => (
-              <ProductCard key={product.id} product={product} index={i} />
+              <ProductCard key={product._id} product={product} index={i} />
             ))}
           </div>
         ) : (

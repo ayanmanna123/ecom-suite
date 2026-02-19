@@ -1,5 +1,5 @@
 export interface Product {
-  id: string;
+  _id: string;
   title: string;
   description: string;
   price: number;
@@ -10,6 +10,7 @@ export interface Product {
   reviewCount: number;
   stock: number;
   badge?: string;
+  seller?: any;
 }
 
 export const categories = [
@@ -23,7 +24,7 @@ export const categories = [
 
 export const products: Product[] = [
   {
-    id: "1",
+    _id: "1",
     title: "Artisan Leather Crossbody",
     description: "Hand-stitched Italian leather crossbody bag with brass hardware. A timeless piece crafted for everyday elegance.",
     price: 189,
@@ -36,7 +37,7 @@ export const products: Product[] = [
     badge: "Sale",
   },
   {
-    id: "2",
+    _id: "2",
     title: "Cashmere Wool Scarf",
     description: "Ultra-soft cashmere blend scarf in a versatile neutral tone. Perfect for layering in any season.",
     price: 95,
@@ -47,7 +48,7 @@ export const products: Product[] = [
     stock: 25,
   },
   {
-    id: "3",
+    _id: "3",
     title: "Linen Relaxed Blazer",
     description: "Breathable linen blazer with a relaxed silhouette. Effortlessly polished for warm-weather styling.",
     price: 225,
@@ -59,7 +60,7 @@ export const products: Product[] = [
     badge: "New",
   },
   {
-    id: "4",
+    _id: "4",
     title: "Ceramic Pour-Over Set",
     description: "Handmade ceramic pour-over coffee set. Each piece is unique, glazed in warm earth tones.",
     price: 68,
@@ -70,7 +71,7 @@ export const products: Product[] = [
     stock: 30,
   },
   {
-    id: "5",
+    _id: "5",
     title: "Suede Chelsea Boots",
     description: "Premium suede Chelsea boots with cushioned insole and durable rubber sole. A wardrobe essential.",
     price: 275,
@@ -82,7 +83,7 @@ export const products: Product[] = [
     badge: "Low Stock",
   },
   {
-    id: "6",
+    _id: "6",
     title: "Woven Tote Bag",
     description: "Sustainably crafted woven tote in natural fibers. Spacious interior with leather handles.",
     price: 120,
@@ -93,7 +94,7 @@ export const products: Product[] = [
     stock: 18,
   },
   {
-    id: "7",
+    _id: "7",
     title: "Brass & Marble Candle Holder",
     description: "Elegant candle holder combining brushed brass with white marble. A sculptural accent piece.",
     price: 45,
@@ -104,7 +105,7 @@ export const products: Product[] = [
     stock: 40,
   },
   {
-    id: "8",
+    _id: "8",
     title: "Organic Cotton Crew Tee",
     description: "Essential crew neck tee in heavyweight organic cotton. Relaxed fit, garment-dyed for a lived-in feel.",
     price: 48,

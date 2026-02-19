@@ -43,6 +43,16 @@ const Navbar = () => {
           <Link to="/products?category=Home" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             Home
           </Link>
+          {user?.role === 'seller' && (
+            <>
+              <Link to="/seller" className="text-sm font-semibold text-primary hover:text-primary/80 transition-colors">
+                Seller Hub
+              </Link>
+              <Link to="/seller/orders" className="text-sm font-semibold text-primary hover:text-primary/80 transition-colors">
+                Orders
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Actions */}
@@ -50,9 +60,9 @@ const Navbar = () => {
           <Link to="/products" className="p-2 text-muted-foreground hover:text-foreground transition-colors" aria-label="Search">
             <Search size={18} />
           </Link>
-          <button className="p-2 text-muted-foreground hover:text-foreground transition-colors" aria-label="Wishlist">
+          <Link to="/wishlist" className="p-2 text-muted-foreground hover:text-foreground transition-colors" aria-label="Wishlist">
             <Heart size={18} />
-          </button>
+          </Link>
           <button
             className="p-2 text-muted-foreground hover:text-foreground transition-colors relative"
             onClick={() => setIsOpen(true)}
@@ -91,6 +101,9 @@ const Navbar = () => {
           <Link to="/products?category=Clothing" className="block text-sm font-medium text-foreground" onClick={() => setMobileMenuOpen(false)}>Clothing</Link>
           <Link to="/products?category=Accessories" className="block text-sm font-medium text-foreground" onClick={() => setMobileMenuOpen(false)}>Accessories</Link>
           <Link to="/products?category=Home" className="block text-sm font-medium text-foreground" onClick={() => setMobileMenuOpen(false)}>Home</Link>
+          {user?.role === 'seller' && (
+            <Link to="/seller" className="block text-sm font-semibold text-primary" onClick={() => setMobileMenuOpen(false)}>Seller Hub</Link>
+          )}
           
           <div className="pt-2 border-t border-border">
             {user ? (

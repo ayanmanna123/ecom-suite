@@ -5,6 +5,11 @@ const orderItemSchema = new mongoose.Schema({
         type: String, // String because existing frontend uses string IDs
         required: true
     },
+    sellerId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     title: String,
     quantity: {
         type: Number,

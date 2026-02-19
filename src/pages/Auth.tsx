@@ -13,6 +13,7 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [role, setRole] = useState<'customer' | 'seller'>('customer');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -31,12 +32,12 @@ const Auth = () => {
         });
         navigate("/");
       } else {
-        await register(email, password, name);
+        await register(email, password, name, role);
         toast({
           title: "Account created!",
-          description: "You have successfully signed up.",
+          description: `You have successfully signed up as a ${role}.`,
         });
-        navigate("/");
+        navigate(role === 'seller' ? "/seller" : "/");
       }
     } catch (error: any) {
       toast({
@@ -76,17 +77,46 @@ const Auth = () => {
 
           <form onSubmit={handleAuth} className="space-y-6">
             {!isLogin && (
-              <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
-                <Input
-                  id="name"
-                  type="text"
-                  placeholder="John Doe"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="rounded-sm"
-                />
-              </div>
+              <>
+                <div className="space-y-2">
+                  <Label htmlFor="name">Full Name</Label>
+                  <Input
+                    id="name"
+                    type="text"
+                    placeholder="John Doe"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="rounded-sm"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>Join as</Label>
+                  <div className="flex gap-4">
+                    <button
+                      type="button"
+                      onClick={() => setRole('customer')}
+                      className={`flex-1 py-2 px-4 text-sm border rounded-sm transition-all ${
+                        role === 'customer' 
+                          ? 'bg-primary text-primary-foreground border-primary' 
+                          : 'bg-background text-muted-foreground border-border hover:border-foreground'
+                      }`}
+                    >
+                      Customer
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setRole('seller')}
+                      className={`flex-1 py-2 px-4 text-sm border rounded-sm transition-all ${
+                        role === 'seller' 
+                          ? 'bg-primary text-primary-foreground border-primary' 
+                          : 'bg-background text-muted-foreground border-border hover:border-foreground'
+                      }`}
+                    >
+                      Seller
+                    </button>
+                  </div>
+                </div>
+              </>
             )}
             <div className="space-y-2">
               <Label htmlFor="email">Email address</Label>

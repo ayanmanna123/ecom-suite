@@ -17,6 +17,15 @@ const userSchema = new mongoose.Schema({
         type: String,
         trim: true
     },
+    role: {
+        type: String,
+        enum: ['customer', 'seller'],
+        default: 'customer'
+    },
+    wishlist: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product'
+    }],
     createdAt: {
         type: Date,
         default: Date.now

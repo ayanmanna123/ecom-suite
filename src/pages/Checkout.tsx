@@ -46,7 +46,8 @@ const Checkout = () => {
     try {
       const orderData = {
         items: items.map(item => ({
-          productId: item.product.id,
+          productId: item.product._id,
+          sellerId: item.product.seller?._id || item.product.seller,
           title: item.product.title,
           quantity: item.quantity,
           priceAtPurchase: item.product.price,
@@ -205,7 +206,7 @@ const Checkout = () => {
             <h2 className="text-sm font-semibold text-foreground mb-6">Order Summary</h2>
             <div className="space-y-4">
               {items.map((item) => (
-                <div key={item.product.id} className="flex gap-3">
+                <div key={item.product._id} className="flex gap-3">
                   <img src={item.product.images[0]} alt={item.product.title} className="w-14 h-16 object-cover rounded-sm bg-muted" />
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-foreground truncate">{item.product.title}</p>

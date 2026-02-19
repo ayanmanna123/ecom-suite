@@ -1,13 +1,35 @@
+import { useState, useEffect } from "react";
 import HeroSection from "@/components/HeroSection";
 import ProductCard from "@/components/ProductCard";
 import Navbar from "@/components/Navbar";
 import CartDrawer from "@/components/CartDrawer";
-import { products } from "@/data/products";
+import { Product } from "@/data/products";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
 
 const Index = () => {
-  const featured = products.slice(0, 4);
+  const [productsList, setProductsList] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/products");
+        const data = await response.json();
+        if (response.ok) {
+          setProductsList(data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const featured = productsList.slice(0, 4);
 
   return (
     <div className="min-h-screen bg-background">
@@ -31,11 +53,17 @@ const Index = () => {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8">
-          {featured.map((product, i) => (
-            <ProductCard key={product.id} product={product} index={i} />
-          ))}
-        </div>
+        {loading ? (
+          <div className="flex justify-center py-12">
+            <Loader2 className="animate-spin text-primary" size={32} />
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8">
+            {featured.map((product, i) => (
+              <ProductCard key={product._id} product={product} index={i} />
+            ))}
+          </div>
+        )}
 
         <Link
           to="/products"

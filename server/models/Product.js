@@ -34,6 +34,11 @@ const productSchema = new mongoose.Schema({
         default: 0
     },
     badge: String,
+    seller: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     createdAt: {
         type: Date,
         default: Date.now

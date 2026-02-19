@@ -11,6 +11,10 @@ import ProductDetail from "./pages/ProductDetail";
 import Checkout from "./pages/Checkout";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
+import SellerDashboard from "./pages/SellerDashboard";
+import AddProduct from "./pages/AddProduct";
+import SellerOrders from "./pages/SellerOrders";
+import Wishlist from "./pages/Wishlist";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +34,10 @@ const App = () => (
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/seller" element={<SellerDashboard />} />
+              <Route path="/seller/add-product" element={<AddProduct />} />
+              <Route path="/seller/orders" element={<SellerOrders />} />
+              <Route path="/wishlist" element={<Wishlist />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
