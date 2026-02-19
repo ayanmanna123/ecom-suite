@@ -17,6 +17,7 @@ interface Product {
 
 const SellerDashboard = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const { user, token } = useAuth();
   const navigate = useNavigate();
@@ -28,8 +29,24 @@ const SellerDashboard = () => {
       return;
     }
 
-    fetchProducts();
+    Promise.all([fetchProducts(), fetchOrders()]).finally(() => setLoading(false));
   }, [user, navigate]);
+
+  const fetchOrders = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/orders/seller", {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setOrders(data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch orders for analytics:", error);
+    }
+  };
 
   const fetchProducts = async () => {
     try {
@@ -50,10 +67,32 @@ const SellerDashboard = () => {
         title: "Error",
         description: error.message,
       });
-    } finally {
-      setLoading(false);
     }
   };
+
+  const calculateMetrics = () => {
+    const activeProducts = products.length;
+    
+    let totalRevenue = 0;
+    let pendingItems = 0;
+
+    orders.forEach(order => {
+      order.items.forEach((item: any) => {
+        if (item.sellerId === user?._id) {
+          if (item.status !== 'cancelled') {
+            totalRevenue += item.priceAtPurchase * item.quantity;
+          }
+          if (item.status === 'pending' || !item.status) {
+            pendingItems++;
+          }
+        }
+      });
+    });
+
+    return { activeProducts, totalRevenue, pendingItems };
+  };
+
+  const metrics = calculateMetrics();
 
   const handleDelete = async (id: string) => {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
@@ -110,6 +149,30 @@ const SellerDashboard = () => {
                 <Plus size={18} />
                 Add New Product
             </Button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="bg-card border border-border rounded-sm p-6 shadow-sm">
+            <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1 block">Total Revenue</span>
+            <div className="flex items-end justify-between">
+              <span className="text-3xl font-semibold">${metrics.totalRevenue.toFixed(2)}</span>
+              <span className="text-xs text-green-600 font-medium">+12% from last month</span>
+            </div>
+          </div>
+          <div className="bg-card border border-border rounded-sm p-6 shadow-sm">
+            <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1 block">Active Products</span>
+            <div className="flex items-end justify-between">
+              <span className="text-3xl font-semibold">{metrics.activeProducts}</span>
+              <span className="text-xs text-muted-foreground">Listings online</span>
+            </div>
+          </div>
+          <div className="bg-card border border-border rounded-sm p-6 shadow-sm">
+            <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1 block">Pending Items</span>
+            <div className="flex items-end justify-between">
+              <span className="text-3xl font-semibold">{metrics.pendingItems}</span>
+              <span className="text-xs text-amber-600 font-medium">Require shipping</span>
+            </div>
           </div>
         </div>
 
@@ -175,7 +238,12 @@ const SellerDashboard = () => {
                       </td>
                       <td className="p-4 text-right">
                         <div className="flex justify-end gap-2">
-                          <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
+                          <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            className="h-8 w-8 text-muted-foreground hover:text-foreground"
+                            onClick={() => navigate(`/seller/edit-product/${product._id}`)}
+                          >
                             <Edit size={16} />
                           </Button>
                           <Button 

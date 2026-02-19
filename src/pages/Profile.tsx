@@ -104,31 +104,31 @@ const Profile = () => {
                           <p className="text-xs text-muted-foreground uppercase tracking-widest mb-1">Date</p>
                           <p className="text-sm font-medium">{new Date(order.createdAt).toLocaleDateString()}</p>
                         </div>
-                        <div>
-                          <p className="text-xs text-muted-foreground uppercase tracking-widest mb-1">Status</p>
-                          <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-primary/10 text-primary">
-                            {order.status}
-                          </span>
-                        </div>
+                        
                         <div>
                           <p className="text-xs text-muted-foreground uppercase tracking-widest mb-1">Total</p>
                           <p className="text-sm font-semibold">${order.totalAmount.toFixed(2)}</p>
                         </div>
                       </div>
-                      <div className="flex -space-x-2 overflow-hidden">
+                      <div className="flex flex-wrap gap-3">
                         {order.items.map((item, i) => (
-                          <img 
-                            key={i} 
-                            src={item.image} 
-                            alt={item.title} 
-                            className="inline-block h-10 w-8 object-cover rounded-sm ring-2 ring-background bg-muted"
-                          />
-                        ))}
-                        {order.items.length > 4 && (
-                          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted text-[10px] font-medium ring-2 ring-background">
-                            +{order.items.length - 4}
+                          <div key={i} className="flex flex-col items-center gap-1.5">
+                            <div className="relative">
+                              <img 
+                                src={item.image} 
+                                alt={item.title} 
+                                className="h-12 w-10 object-cover rounded-sm bg-muted border border-border/50"
+                              />
+                            </div>
+                            <span className={`text-[8px] font-bold uppercase tracking-tighter px-1 py-0.5 rounded-sm ${
+                              item.status === 'delivered' ? 'bg-green-100 text-green-700' :
+                              item.status === 'shipped' ? 'bg-blue-100 text-blue-700' :
+                              'bg-amber-100 text-amber-700'
+                            }`}>
+                              {item.status || 'pending'}
+                            </span>
                           </div>
-                        )}
+                        ))}
                       </div>
                     </div>
                   ))}

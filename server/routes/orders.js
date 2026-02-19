@@ -66,4 +66,50 @@ router.get('/:id', auth, async (req, res) => {
     }
 });
 
+// @route   PATCH /api/orders/:orderId/item/:productId/status
+// @desc    Update status of a specific item in an order
+// @access  Private/Seller
+router.patch('/:orderId/item/:productId/status', auth, authorize('seller'), async (req, res) => {
+    try {
+        const { status } = req.body;
+        const order = await Order.findById(req.params.orderId);
+
+        if (!order) {
+            return res.status(404).json({ msg: 'Order not found' });
+        }
+
+        const item = order.items.find(
+            i => i.productId === req.params.productId && i.sellerId.toString() === req.user._id.toString()
+        );
+
+        if (!item) {
+            return res.status(404).json({ msg: 'Item not found or unauthorized' });
+        }
+
+        item.status = status;
+
+        // Recalculate top-level order status
+        const itemStatuses = order.items.map(i => i.status || 'pending');
+
+        if (itemStatuses.every(s => s === 'delivered')) {
+            order.status = 'delivered';
+        } else if (itemStatuses.every(s => s === 'cancelled')) {
+            order.status = 'cancelled';
+        } else if (itemStatuses.some(s => s === 'pending')) {
+            order.status = 'pending';
+        } else if (itemStatuses.some(s => s === 'processing')) {
+            order.status = 'processing';
+        } else if (itemStatuses.some(s => s === 'shipped')) {
+            order.status = 'shipped';
+        }
+
+        await order.save();
+
+        res.json(order);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ msg: 'Server Error' });
+    }
+});
+
 export default router;

@@ -19,7 +19,12 @@ const orderItemSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    image: String
+    image: String,
+    status: {
+        type: String,
+        enum: ['pending', 'processing', 'shipped', 'delivered', 'cancelled'],
+        default: 'pending'
+    }
 });
 
 const orderSchema = new mongoose.Schema({

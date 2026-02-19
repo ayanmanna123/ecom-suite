@@ -2,13 +2,16 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import Navbar from "@/components/Navbar";
 import { Link } from "react-router-dom";
-import { Package, ArrowLeft, Loader2, CheckCircle, Clock } from "lucide-react";
+import { Package, ArrowLeft, Loader2, CheckCircle, Clock, Save } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 const SellerOrders = () => {
   const { user, token } = useAuth();
   const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [updatingId, setUpdatingId] = useState<string | null>(null);
+  const { toast } = useToast();
 
   useEffect(() => {
     const fetchSellerOrders = async () => {
@@ -33,6 +36,50 @@ const SellerOrders = () => {
       fetchSellerOrders();
     }
   }, [token]);
+
+  const handleStatusUpdate = async (orderId: string, productId: string, status: string) => {
+    setUpdatingId(`${orderId}-${productId}`);
+    try {
+      const response = await fetch(`http://localhost:5000/api/orders/${orderId}/item/${productId}/status`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify({ status }),
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Status Updated",
+          description: "Item status has been successfully updated.",
+        });
+        // Update local state
+        setOrders(prev => prev.map(order => {
+          if (order._id === orderId) {
+            return {
+              ...order,
+              items: order.items.map((item: any) => 
+                item.productId === productId ? { ...item, status } : item
+              )
+            };
+          }
+          return order;
+        }));
+      } else {
+        const data = await response.json();
+        throw new Error(data.msg || "Failed to update status");
+      }
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error.message,
+      });
+    } finally {
+      setUpdatingId(null);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -96,17 +143,58 @@ const SellerOrders = () => {
                     {order.items
                       .filter((item: any) => item.sellerId === user?._id)
                       .map((item: any, i: number) => (
-                        <div key={i} className="flex gap-4 items-center bg-background p-3 rounded-sm border border-border/50">
-                          <img
-                            src={item.image}
-                            alt={item.title}
-                            className="w-16 h-16 object-cover rounded-sm bg-muted"
-                          />
-                          <div className="flex-1 min-w-0">
-                            <h4 className="text-sm font-medium truncate">{item.title}</h4>
-                            <p className="text-xs text-muted-foreground">
-                              Qty: {item.quantity} × ${item.priceAtPurchase.toFixed(2)}
-                            </p>
+                        <div key={i} className="flex flex-col gap-3 bg-background p-3 rounded-sm border border-border/50">
+                          <div className="flex gap-4 items-center">
+                            <img
+                              src={item.image}
+                              alt={item.title}
+                              className="w-16 h-16 object-cover rounded-sm bg-muted"
+                            />
+                            <div className="flex-1 min-w-0">
+                              <h4 className="text-sm font-medium truncate">{item.title}</h4>
+                              <p className="text-xs text-muted-foreground">
+                                Qty: {item.quantity} × ${item.priceAtPurchase.toFixed(2)}
+                              </p>
+                              <div className="mt-1 flex items-center gap-2">
+                                <span className={`text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-sm ${
+                                  item.status === 'delivered' ? 'bg-green-100 text-green-700' :
+                                  item.status === 'shipped' ? 'bg-blue-100 text-blue-700' :
+                                  'bg-amber-100 text-amber-700'
+                                }`}>
+                                  {item.status || 'pending'}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-center gap-2 border-t border-border pt-3">
+                            <select 
+                              className="flex-1 bg-muted text-xs border-0 rounded-sm px-2 py-1.5 focus:ring-1 focus:ring-primary outline-none"
+                              defaultValue={item.status || 'pending'}
+                              id={`status-${order._id}-${item.productId}`}
+                            >
+                              <option value="pending">Pending</option>
+                              <option value="processing">Processing</option>
+                              <option value="shipped">Shipped</option>
+                              <option value="delivered">Delivered</option>
+                              <option value="cancelled">Cancelled</option>
+                            </select>
+                            <Button 
+                              size="sm" 
+                              className="h-8 rounded-sm gap-1.5 px-3"
+                              disabled={updatingId === `${order._id}-${item.productId}`}
+                              onClick={() => {
+                                const select = document.getElementById(`status-${order._id}-${item.productId}`) as HTMLSelectElement;
+                                handleStatusUpdate(order._id, item.productId, select.value);
+                              }}
+                            >
+                              {updatingId === `${order._id}-${item.productId}` ? (
+                                <Loader2 size={12} className="animate-spin" />
+                              ) : (
+                                <Save size={12} />
+                              )}
+                              Update
+                            </Button>
                           </div>
                         </div>
                       ))}
@@ -121,11 +209,6 @@ const SellerOrders = () => {
                       <p className="text-xs text-muted-foreground">
                         {order.shippingAddress.address}, {order.shippingAddress.city}, {order.shippingAddress.state} {order.shippingAddress.zip}
                       </p>
-                    </div>
-                    <div className="flex items-end justify-end">
-                      <Button variant="outline" size="sm" className="text-xs rounded-sm">
-                        Update Status
-                      </Button>
                     </div>
                   </div>
                 </div>

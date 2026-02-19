@@ -13,6 +13,7 @@ import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
 import SellerDashboard from "./pages/SellerDashboard";
 import AddProduct from "./pages/AddProduct";
+import EditProduct from "./pages/EditProduct";
 import SellerOrders from "./pages/SellerOrders";
 import Wishlist from "./pages/Wishlist";
 import NotFound from "./pages/NotFound";
@@ -36,6 +37,7 @@ const App = () => (
               <Route path="/profile" element={<Profile />} />
               <Route path="/seller" element={<SellerDashboard />} />
               <Route path="/seller/add-product" element={<AddProduct />} />
+              <Route path="/seller/edit-product/:id" element={<EditProduct />} />
               <Route path="/seller/orders" element={<SellerOrders />} />
               <Route path="/wishlist" element={<Wishlist />} />
               <Route path="*" element={<NotFound />} />
