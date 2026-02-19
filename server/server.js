@@ -2,6 +2,11 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import authRoutes from './routes/auth.js';
+import orderRoutes from './routes/orders.js';
+import productRoutes from './routes/products.js';
+import reviewRoutes from './routes/reviews.js';
+import wishlistRoutes from './routes/wishlist.js';
 
 dotenv.config();
 
@@ -23,14 +28,6 @@ if (!MONGODB_URI) {
 mongoose.connect(MONGODB_URI)
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('MongoDB connection error:', err));
-
-import authRoutes from './routes/auth.js';
-import orderRoutes from './routes/orders.js';
-import productRoutes from './routes/products.js';
-import reviewRoutes from './routes/reviews.js';
-import wishlistRoutes from './routes/wishlist.js';
-
-// ... (existing constants)
 
 // Routes
 app.use('/api/auth', authRoutes);

@@ -40,7 +40,7 @@ router.post('/', auth, async (req, res) => {
         res.status(201).json(newReview);
     } catch (err) {
         console.error(err.message);
-        res.status(500).send('Server Error');
+        res.status(500).json({ msg: 'Server Error' });
     }
 });
 
@@ -55,7 +55,7 @@ router.get('/product/:id', async (req, res) => {
         res.json(reviews);
     } catch (err) {
         console.error(err.message);
-        res.status(500).send('Server Error');
+        res.status(500).json({ msg: 'Server Error' });
     }
 });
 

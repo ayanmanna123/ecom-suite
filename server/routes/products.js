@@ -12,7 +12,19 @@ router.get('/', async (req, res) => {
         const products = await Product.find().populate('seller', 'name email');
         res.json(products);
     } catch (err) {
-        res.status(500).send('Server Error');
+        res.status(500).json({ msg: 'Server Error' });
+    }
+});
+
+// @route   GET /api/products/seller
+// @desc    Get products for the logged in seller
+// @access  Private/Seller
+router.get('/seller', auth, authorize('seller'), async (req, res) => {
+    try {
+        const products = await Product.find({ seller: req.user._id });
+        res.json(products);
+    } catch (err) {
+        res.status(500).json({ msg: 'Server Error' });
     }
 });
 
@@ -32,19 +44,7 @@ router.get('/:id', async (req, res) => {
         if (err.kind === 'ObjectId') {
             return res.status(404).json({ msg: 'Product not found' });
         }
-        res.status(500).send('Server Error');
-    }
-});
-
-// @route   GET /api/products/seller
-// @desc    Get products for the logged in seller
-// @access  Private/Seller
-router.get('/seller', auth, authorize('seller'), async (req, res) => {
-    try {
-        const products = await Product.find({ seller: req.user._id });
-        res.json(products);
-    } catch (err) {
-        res.status(500).send('Server Error');
+        res.status(500).json({ msg: 'Server Error' });
     }
 });
 
@@ -71,7 +71,7 @@ router.post('/', auth, authorize('seller'), async (req, res) => {
         res.json(product);
     } catch (err) {
         console.error(err.message);
-        res.status(500).send('Server Error');
+        res.status(500).json({ msg: 'Server Error' });
     }
 });
 
@@ -82,14 +82,14 @@ router.put('/:id', auth, authorize('seller'), async (req, res) => {
     try {
         const { title, description, price, originalPrice, category, images, stock, badge } = req.body;
 
-        let product = await Product.findById(req.id);
+        let product = await Product.findById(req.params.id);
 
         if (!product) {
             return res.status(404).json({ msg: 'Product not found' });
         }
 
         // Make sure user owns product
-        if (product.seller.toString() !== req.user.id) {
+        if (product.seller.toString() !== req.user._id.toString()) {
             return res.status(401).json({ msg: 'User not authorized' });
         }
 
@@ -102,7 +102,10 @@ router.put('/:id', auth, authorize('seller'), async (req, res) => {
         res.json(product);
     } catch (err) {
         console.error(err.message);
-        res.status(500).send('Server Error');
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ msg: 'Product not found' });
+        }
+        res.status(500).json({ msg: 'Server Error' });
     }
 });
 
@@ -118,16 +121,19 @@ router.delete('/:id', auth, authorize('seller'), async (req, res) => {
         }
 
         // Make sure user owns product
-        if (product.seller.toString() !== req.user.id) {
+        if (product.seller.toString() !== req.user._id.toString()) {
             return res.status(401).json({ msg: 'User not authorized' });
         }
 
-        await product.remove();
+        await Product.findByIdAndDelete(req.params.id);
 
         res.json({ msg: 'Product removed' });
     } catch (err) {
         console.error(err.message);
-        res.status(500).send('Server Error');
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ msg: 'Product not found' });
+        }
+        res.status(500).json({ msg: 'Server Error' });
     }
 });
 
