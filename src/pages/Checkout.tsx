@@ -15,6 +15,13 @@ const Checkout = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [promoCode, setPromoCode] = useState("");
+  const [discount, setDiscount] = useState(0);
+  const [couponLoading, setCouponLoading] = useState(false);
+  const [appliedCoupon, setAppliedCoupon] = useState<{code: string, pct: number} | null>(null);
+
+  const discountedTotal = totalPrice - (totalPrice * (discount / 100));
+
 
   const [formData, setFormData] = useState({
     email: user?.email || "",
@@ -30,65 +37,120 @@ const Checkout = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleApplyCoupon = async () => {
+    if (!promoCode.trim()) return;
+    setCouponLoading(true);
+    try {
+      const response = await fetch(`${API_URL}/coupons/validate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: promoCode })
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Invalid coupon');
+      
+      setDiscount(data.discountPercentage);
+      setAppliedCoupon({ code: data.code, pct: data.discountPercentage });
+      toast({ title: "Coupon Applied!", description: `${data.discountPercentage}% discount added.` });
+    } catch (error: any) {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    } finally {
+      setCouponLoading(false);
+    }
+  };
+
   const handlePlaceOrder = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!user || !token) {
-      toast({
-        title: "Please sign in",
-        description: "You must be logged in to place an order.",
-        variant: "destructive",
-      });
-      navigate("/auth");
-      return;
-    }
-
     setLoading(true);
+
     try {
-      const orderData = {
-        items: items.map(item => ({
-          productId: item.product._id,
-          sellerId: item.product.seller?._id || item.product.seller,
-          title: item.product.title,
-          quantity: item.quantity,
-          priceAtPurchase: item.product.price,
-          image: item.product.images[0]
-        })),
-        totalAmount: totalPrice,
-        shippingAddress: {
-          fullName: `${formData.firstName} ${formData.lastName}`,
-          email: formData.email,
-          address: formData.address,
-          city: formData.city,
-          state: formData.state,
-          zip: formData.zip
-        }
+      // 1. Create Razorpay Order on Backend
+      const payResponse = await fetch(`${API_URL}/payment/create-order`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: discountedTotal,
+          currency: 'INR',
+          receipt: `rcpt_${Date.now()}`
+        })
+      });
+
+      const rzpOrder = await payResponse.json();
+      if (!payResponse.ok) throw new Error('Payment initialization failed');
+
+      // 2. Open Razorpay Checkout Modal
+      const options = {
+        key: 'rzp_test_placeholder', // Should come from .env/config
+        amount: rzpOrder.amount,
+        currency: rzpOrder.currency,
+        name: 'Ecom-Suite',
+        description: 'Order Payment',
+        order_id: rzpOrder.id,
+        handler: async (response: any) => {
+          // 3. Verify Payment and Place Order
+          try {
+            const verifyResponse = await fetch(`${API_URL}/payment/verify`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature
+              })
+            });
+
+            if (!verifyResponse.ok) throw new Error('Payment verification failed');
+
+            // 4. Save Order to Database
+            const orderData = {
+              items: items.map(item => ({
+                productId: item.product._id,
+                sellerId: item.product.seller?._id || item.product.seller,
+                title: item.product.title,
+                quantity: item.quantity,
+                priceAtPurchase: item.product.price,
+                image: item.product.images[0]
+              })),
+              totalAmount: discountedTotal,
+              shippingAddress: {
+                fullName: `${formData.firstName} ${formData.lastName}`,
+                email: formData.email,
+                address: formData.address,
+                city: formData.city,
+                state: formData.state,
+                zip: formData.zip
+              }
+            };
+
+            const orderResponse = await fetch(`${API_URL}/orders`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+              },
+              body: JSON.stringify(orderData)
+            });
+
+            if (!orderResponse.ok) throw new Error('Order creation failed');
+
+            toast({ title: "Order Success!", description: "Your order has been placed successfully." });
+            clearCart();
+            navigate(user ? "/profile" : "/");
+          } catch (err: any) {
+            toast({ title: "Payment Error", description: err.message, variant: "destructive" });
+          }
+        },
+        prefill: {
+          name: `${formData.firstName} ${formData.lastName}`,
+          email: formData.email
+        },
+        theme: { color: '#000000' }
       };
 
-      const response = await fetch(`${API_URL}/orders`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(orderData)
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to place order');
-      }
-
-      toast({
-        title: "Order Placed!",
-        description: "Your order has been successfully processed.",
-      });
-      clearCart();
-      navigate("/profile");
+      const rzp = new (window as any).Razorpay(options);
+      rzp.open();
     } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
+      toast({ title: "Error", description: error.message, variant: "destructive" });
     } finally {
       setLoading(false);
     }
@@ -195,7 +257,7 @@ const Checkout = () => {
                 className="w-full bg-primary text-primary-foreground py-3 rounded-sm text-sm font-medium hover:bg-primary/90 transition-colors mt-4 flex items-center justify-center gap-2"
               >
                 {loading ? <Loader2 className="animate-spin" size={16} /> : null}
-                Place Order — ${totalPrice.toFixed(2)}
+                Place Order — ${discountedTotal.toFixed(2)}
               </button>
               <p className="text-xs text-muted-foreground text-center">Managed by your custom MERN backend</p>
             </div>
@@ -219,7 +281,34 @@ const Checkout = () => {
             <div className="border-t border-border mt-6 pt-4 space-y-2">
               <div className="flex justify-between text-sm"><span className="text-muted-foreground">Subtotal</span><span>${totalPrice.toFixed(2)}</span></div>
               <div className="flex justify-between text-sm"><span className="text-muted-foreground">Shipping</span><span>Free</span></div>
-              <div className="flex justify-between text-sm font-semibold pt-2 border-t border-border"><span>Total</span><span className="font-display text-lg">${totalPrice.toFixed(2)}</span></div>
+              {discount > 0 && (
+                <div className="flex justify-between text-sm text-green-600"><span className="font-medium">Discount ({discount}%)</span><span>-${(totalPrice * (discount / 100)).toFixed(2)}</span></div>
+              )}
+              <div className="pt-4 border-t border-border">
+                <div className="flex gap-2">
+                  <input 
+                    placeholder="Promo code" 
+                    value={promoCode}
+                    onChange={(e) => setPromoCode(e.target.value)}
+                    className="flex-1 bg-background text-foreground text-sm px-3 py-2 rounded-sm border border-border focus:outline-none focus:ring-1 focus:ring-ring"
+                  />
+                  <button 
+                    type="button"
+                    onClick={handleApplyCoupon}
+                    disabled={couponLoading || !promoCode}
+                    className="bg-secondary text-secondary-foreground px-4 py-2 rounded-sm text-xs font-medium hover:bg-secondary/80 disabled:opacity-50"
+                  >
+                    {couponLoading ? "..." : "Apply"}
+                  </button>
+                </div>
+                {appliedCoupon && (
+                  <p className="text-[10px] text-green-600 mt-1.5 flex justify-between items-center">
+                    <span>Applied: {appliedCoupon.code}</span>
+                    <button onClick={() => { setDiscount(0); setAppliedCoupon(null); setPromoCode(""); }} className="underline">Remove</button>
+                  </p>
+                )}
+              </div>
+              <div className="flex justify-between text-sm font-semibold pt-2 border-t border-border"><span>Total</span><span className="font-display text-lg">${discountedTotal.toFixed(2)}</span></div>
             </div>
           </div>
         </div>

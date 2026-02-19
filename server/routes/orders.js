@@ -5,12 +5,17 @@ import auth, { authorize } from '../middleware/auth.js';
 const router = express.Router();
 
 // Create new order
-router.post('/', auth, async (req, res) => {
+// Create new order
+router.post('/', async (req, res) => {
     try {
         const { items, totalAmount, shippingAddress } = req.body;
 
+        // Extract user from optional auth (if using middleware or custom check)
+        // For simplicity, we'll check if req.user exists (set by auth middleware if token provided)
+        const userId = req.user ? req.user._id : null;
+
         const order = new Order({
-            userId: req.user._id,
+            userId,
             items,
             totalAmount,
             shippingAddress
