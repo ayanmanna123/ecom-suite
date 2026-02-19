@@ -1,0 +1,49 @@
+import express from 'express';
+import jwt from 'jsonwebtoken';
+import User from '../models/User.js';
+
+const router = express.Router();
+
+// Register
+router.post('/register', async (req, res) => {
+    try {
+        const { email, password, name } = req.body;
+        console.log('Registration attempt:', { email, name });
+
+        // Check if user exists
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            console.log('User already exists:', email);
+            return res.status(400).send({ error: 'Email already in use' });
+        }
+
+        const user = new User({ email, password, name });
+        await user.save();
+        console.log('User registered successfully:', user._id);
+
+        const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET, { expiresIn: '7d' });
+        res.status(201).send({ user, token });
+    } catch (error) {
+        console.error('Registration error:', error);
+        res.status(400).send({ error: error.message || error });
+    }
+});
+
+// Login
+router.post('/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const user = await User.findOne({ email });
+
+        if (!user || !(await user.comparePassword(password))) {
+            return res.status(401).send({ error: 'Invalid login credentials' });
+        }
+
+        const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET, { expiresIn: '7d' });
+        res.send({ user, token });
+    } catch (error) {
+        res.status(400).send(error);
+    }
+});
+
+export default router;

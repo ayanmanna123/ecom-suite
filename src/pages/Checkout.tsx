@@ -1,11 +1,97 @@
 import { useCart } from "@/context/CartContext";
-import { Link } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import CartDrawer from "@/components/CartDrawer";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+
+const API_URL = 'http://localhost:5000/api';
 
 const Checkout = () => {
-  const { items, totalPrice } = useCart();
+  const { items, totalPrice, clearCart } = useCart();
+  const { user, token } = useAuth();
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
+
+  const [formData, setFormData] = useState({
+    email: user?.email || "",
+    firstName: "",
+    lastName: "",
+    address: "",
+    city: "",
+    state: "",
+    zip: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handlePlaceOrder = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!user || !token) {
+      toast({
+        title: "Please sign in",
+        description: "You must be logged in to place an order.",
+        variant: "destructive",
+      });
+      navigate("/auth");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const orderData = {
+        items: items.map(item => ({
+          productId: item.product.id,
+          title: item.product.title,
+          quantity: item.quantity,
+          priceAtPurchase: item.product.price,
+          image: item.product.images[0]
+        })),
+        totalAmount: totalPrice,
+        shippingAddress: {
+          fullName: `${formData.firstName} ${formData.lastName}`,
+          email: formData.email,
+          address: formData.address,
+          city: formData.city,
+          state: formData.state,
+          zip: formData.zip
+        }
+      };
+
+      const response = await fetch(`${API_URL}/orders`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(orderData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to place order');
+      }
+
+      toast({
+        title: "Order Placed!",
+        description: "Your order has been successfully processed.",
+      });
+      clearCart();
+      navigate("/profile");
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (items.length === 0) {
     return (
@@ -30,35 +116,89 @@ const Checkout = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Form */}
-          <div>
+          <form onSubmit={handlePlaceOrder}>
             <h1 className="font-display text-3xl font-semibold text-foreground mb-8">Checkout</h1>
 
             <div className="space-y-6">
               <div>
                 <h2 className="text-sm font-semibold text-foreground mb-4">Contact</h2>
-                <input placeholder="Email address" className="w-full bg-muted text-foreground text-sm px-4 py-3 rounded-sm border-0 focus:outline-none focus:ring-1 focus:ring-ring placeholder:text-muted-foreground" />
+                <input 
+                  name="email"
+                  placeholder="Email address" 
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="w-full bg-muted text-foreground text-sm px-4 py-3 rounded-sm border-0 focus:outline-none focus:ring-1 focus:ring-ring placeholder:text-muted-foreground" 
+                />
               </div>
 
               <div>
                 <h2 className="text-sm font-semibold text-foreground mb-4">Shipping Address</h2>
                 <div className="grid grid-cols-2 gap-3">
-                  <input placeholder="First name" className="bg-muted text-foreground text-sm px-4 py-3 rounded-sm border-0 focus:outline-none focus:ring-1 focus:ring-ring placeholder:text-muted-foreground" />
-                  <input placeholder="Last name" className="bg-muted text-foreground text-sm px-4 py-3 rounded-sm border-0 focus:outline-none focus:ring-1 focus:ring-ring placeholder:text-muted-foreground" />
+                  <input 
+                    name="firstName"
+                    placeholder="First name" 
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    required
+                    className="bg-muted text-foreground text-sm px-4 py-3 rounded-sm border-0 focus:outline-none focus:ring-1 focus:ring-ring placeholder:text-muted-foreground" 
+                  />
+                  <input 
+                    name="lastName"
+                    placeholder="Last name" 
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    required
+                    className="bg-muted text-foreground text-sm px-4 py-3 rounded-sm border-0 focus:outline-none focus:ring-1 focus:ring-ring placeholder:text-muted-foreground" 
+                  />
                 </div>
-                <input placeholder="Address" className="w-full bg-muted text-foreground text-sm px-4 py-3 rounded-sm border-0 focus:outline-none focus:ring-1 focus:ring-ring placeholder:text-muted-foreground mt-3" />
+                <input 
+                  name="address"
+                  placeholder="Address" 
+                  value={formData.address}
+                  onChange={handleChange}
+                  required
+                  className="w-full bg-muted text-foreground text-sm px-4 py-3 rounded-sm border-0 focus:outline-none focus:ring-1 focus:ring-ring placeholder:text-muted-foreground mt-3" 
+                />
                 <div className="grid grid-cols-3 gap-3 mt-3">
-                  <input placeholder="City" className="bg-muted text-foreground text-sm px-4 py-3 rounded-sm border-0 focus:outline-none focus:ring-1 focus:ring-ring placeholder:text-muted-foreground" />
-                  <input placeholder="State" className="bg-muted text-foreground text-sm px-4 py-3 rounded-sm border-0 focus:outline-none focus:ring-1 focus:ring-ring placeholder:text-muted-foreground" />
-                  <input placeholder="ZIP" className="bg-muted text-foreground text-sm px-4 py-3 rounded-sm border-0 focus:outline-none focus:ring-1 focus:ring-ring placeholder:text-muted-foreground" />
+                  <input 
+                    name="city"
+                    placeholder="City" 
+                    value={formData.city}
+                    onChange={handleChange}
+                    required
+                    className="bg-muted text-foreground text-sm px-4 py-3 rounded-sm border-0 focus:outline-none focus:ring-1 focus:ring-ring placeholder:text-muted-foreground" 
+                  />
+                  <input 
+                    name="state"
+                    placeholder="State" 
+                    value={formData.state}
+                    onChange={handleChange}
+                    required
+                    className="bg-muted text-foreground text-sm px-4 py-3 rounded-sm border-0 focus:outline-none focus:ring-1 focus:ring-ring placeholder:text-muted-foreground" 
+                  />
+                  <input 
+                    name="zip"
+                    placeholder="ZIP" 
+                    value={formData.zip}
+                    onChange={handleChange}
+                    required
+                    className="bg-muted text-foreground text-sm px-4 py-3 rounded-sm border-0 focus:outline-none focus:ring-1 focus:ring-ring placeholder:text-muted-foreground" 
+                  />
                 </div>
               </div>
 
-              <button className="w-full bg-primary text-primary-foreground py-3 rounded-sm text-sm font-medium hover:bg-primary/90 transition-colors mt-4">
+              <button 
+                type="submit"
+                disabled={loading}
+                className="w-full bg-primary text-primary-foreground py-3 rounded-sm text-sm font-medium hover:bg-primary/90 transition-colors mt-4 flex items-center justify-center gap-2"
+              >
+                {loading ? <Loader2 className="animate-spin" size={16} /> : null}
                 Place Order — ${totalPrice.toFixed(2)}
               </button>
-              <p className="text-xs text-muted-foreground text-center">Payment integration requires Lovable Cloud</p>
+              <p className="text-xs text-muted-foreground text-center">Managed by your custom MERN backend</p>
             </div>
-          </div>
+          </form>
 
           {/* Order Summary */}
           <div className="bg-muted/50 rounded-sm p-6 h-fit">

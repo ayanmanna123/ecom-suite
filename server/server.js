@@ -1,0 +1,42 @@
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// MongoDB Connection
+const MONGODB_URI = process.env.MONGODB_URI;
+
+if (!MONGODB_URI) {
+    console.error("MONGODB_URI is not defined in .env");
+    process.exit(1);
+}
+
+mongoose.connect(MONGODB_URI)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.error('MongoDB connection error:', err));
+
+import authRoutes from './routes/auth.js';
+import orderRoutes from './routes/orders.js';
+
+// ... (existing constants)
+
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/orders', orderRoutes);
+
+app.get('/', (req, res) => {
+    res.send('Ecom-Suite API is running');
+});
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});

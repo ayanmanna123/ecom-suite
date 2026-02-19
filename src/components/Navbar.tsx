@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
-import { Search, ShoppingBag, Heart, Menu, X } from "lucide-react";
+import { Search, ShoppingBag, Heart, Menu, X, User } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
 
 const Navbar = () => {
   const { totalItems, setIsOpen } = useCart();
+  const { user } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -63,6 +65,21 @@ const Navbar = () => {
               </span>
             )}
           </button>
+          
+          <div className="h-4 w-[1px] bg-border mx-1 hidden sm:block"></div>
+
+          {user ? (
+            <Link to="/profile" className="p-2 text-muted-foreground hover:text-foreground transition-colors" aria-label="Profile">
+              <User size={18} />
+            </Link>
+          ) : (
+            <Link 
+              to="/auth" 
+              className="text-sm font-medium text-foreground hover:text-primary transition-colors ml-2"
+            >
+              Sign In
+            </Link>
+          )}
         </div>
       </nav>
 
@@ -74,6 +91,14 @@ const Navbar = () => {
           <Link to="/products?category=Clothing" className="block text-sm font-medium text-foreground" onClick={() => setMobileMenuOpen(false)}>Clothing</Link>
           <Link to="/products?category=Accessories" className="block text-sm font-medium text-foreground" onClick={() => setMobileMenuOpen(false)}>Accessories</Link>
           <Link to="/products?category=Home" className="block text-sm font-medium text-foreground" onClick={() => setMobileMenuOpen(false)}>Home</Link>
+          
+          <div className="pt-2 border-t border-border">
+            {user ? (
+              <Link to="/profile" className="block text-sm font-medium text-foreground" onClick={() => setMobileMenuOpen(false)}>My Account</Link>
+            ) : (
+              <Link to="/auth" className="block text-sm font-medium text-foreground" onClick={() => setMobileMenuOpen(false)}>Sign In</Link>
+            )}
+          </div>
         </div>
       )}
     </header>
