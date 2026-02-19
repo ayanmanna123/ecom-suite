@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import CartDrawer from "@/components/CartDrawer";
 import { ArrowLeft, Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 
 const API_URL = 'http://localhost:5000/api';
@@ -32,6 +32,30 @@ const Checkout = () => {
     state: "",
     zip: "",
   });
+
+  useEffect(() => {
+    if (token) {
+      fetch(`${API_URL}/addresses`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          const defaultAddr = data.find(a => a.isDefault) || data[0];
+          setFormData({
+            email: user?.email || "",
+            firstName: defaultAddr.firstName,
+            lastName: defaultAddr.lastName,
+            address: defaultAddr.address,
+            city: defaultAddr.city,
+            state: defaultAddr.state,
+            zip: defaultAddr.zip,
+          });
+        }
+      })
+      .catch(err => console.error('Failed to fetch addresses:', err));
+    }
+  }, [token, user]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -80,7 +104,7 @@ const Checkout = () => {
 
       // 2. Open Razorpay Checkout Modal
       const options = {
-        key: 'rzp_test_placeholder', // Should come from .env/config
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_placeholder', 
         amount: rzpOrder.amount,
         currency: rzpOrder.currency,
         name: 'Ecom-Suite',

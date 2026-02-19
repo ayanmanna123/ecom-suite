@@ -1,12 +1,12 @@
 import express from 'express';
 import Order from '../models/Order.js';
-import auth, { authorize } from '../middleware/auth.js';
+import auth, { authorize, maybeAuth } from '../middleware/auth.js';
 
 const router = express.Router();
 
 // Create new order
 // Create new order
-router.post('/', async (req, res) => {
+router.post('/', maybeAuth, async (req, res) => {
     try {
         const { items, totalAmount, shippingAddress } = req.body;
 

@@ -24,6 +24,25 @@ const auth = async (req, res, next) => {
     }
 };
 
+export const maybeAuth = async (req, res, next) => {
+    try {
+        const token = req.header('Authorization')?.replace('Bearer ', '');
+
+        if (token) {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            const user = await User.findOne({ _id: decoded._id });
+            if (user) {
+                req.token = token;
+                req.user = user;
+            }
+        }
+        next();
+    } catch (e) {
+        // If token is invalid, just proceed as guest
+        next();
+    }
+};
+
 export const authorize = (role) => {
     return (req, res, next) => {
         if (req.user.role !== role) {

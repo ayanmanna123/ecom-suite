@@ -26,6 +26,18 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Product'
     }],
+    addresses: [{
+        firstName: String,
+        lastName: String,
+        address: String,
+        city: String,
+        state: String,
+        zip: String,
+        isDefault: {
+            type: Boolean,
+            default: false
+        }
+    }],
     createdAt: {
         type: Date,
         default: Date.now

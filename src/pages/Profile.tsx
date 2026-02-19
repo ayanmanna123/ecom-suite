@@ -2,7 +2,7 @@ import { useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
-import { User, LogOut, Package, MapPin, Heart, Settings, Loader2 } from "lucide-react";
+import { User, LogOut, Package, MapPin, Heart, Settings, Loader2, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface Order {
@@ -81,11 +81,54 @@ const Profile = () => {
           </header>
 
           <div className="space-y-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <button 
+                onClick={() => navigate("/addresses")}
+                className="flex flex-col items-center gap-3 p-6 border border-border rounded-sm hover:border-foreground/20 hover:bg-muted/30 transition-all text-center group"
+              >
+                <div className="p-3 rounded-sm bg-muted text-foreground group-hover:bg-foreground group-hover:text-background transition-colors">
+                  <MapPin size={18} />
+                </div>
+                <div>
+                  <h3 className="text-sm font-medium text-foreground">Addresses</h3>
+                </div>
+              </button>
+              <button 
+                onClick={() => navigate("/wishlist")}
+                className="flex flex-col items-center gap-3 p-6 border border-border rounded-sm hover:border-foreground/20 hover:bg-muted/30 transition-all text-center group"
+              >
+                <div className="p-3 rounded-sm bg-muted text-foreground group-hover:bg-foreground group-hover:text-background transition-colors">
+                  <Heart size={18} />
+                </div>
+                <div>
+                  <h3 className="text-sm font-medium text-foreground">Wishlist</h3>
+                </div>
+              </button>
+              <button 
+                onClick={() => navigate("/settings")}
+                className="flex flex-col items-center gap-3 p-6 border border-border rounded-sm hover:border-foreground/20 hover:bg-muted/30 transition-all text-center group"
+              >
+                <div className="p-3 rounded-sm bg-muted text-foreground group-hover:bg-foreground group-hover:text-background transition-colors">
+                  <Settings size={18} />
+                </div>
+                <div>
+                  <h3 className="text-sm font-medium text-foreground">Settings</h3>
+                </div>
+              </button>
+            </div>
+
             <section>
-              <h2 className="font-display text-xl font-semibold mb-6 flex items-center gap-2">
-                <Package size={20} />
-                Recent Orders
-              </h2>
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="font-display text-xl font-semibold flex items-center gap-2">
+                  <Package size={20} />
+                  Recent Orders
+                </h2>
+                {orders.length > 0 && (
+                  <Link to="/orders" className="text-xs font-semibold uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
+                    View History <ChevronRight size={14} />
+                  </Link>
+                )}
+              </div>
               
               {ordersLoading ? (
                 <div className="flex justify-center py-12">
@@ -140,33 +183,6 @@ const Profile = () => {
                 </div>
               )}
             </section>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <button className="flex flex-col items-center gap-3 p-6 border border-border rounded-sm hover:border-foreground/20 hover:bg-muted/30 transition-all text-center group">
-                <div className="p-3 rounded-sm bg-muted text-foreground group-hover:bg-foreground group-hover:text-background transition-colors">
-                  <MapPin size={18} />
-                </div>
-                <div>
-                  <h3 className="text-sm font-medium text-foreground">Addresses</h3>
-                </div>
-              </button>
-              <button className="flex flex-col items-center gap-3 p-6 border border-border rounded-sm hover:border-foreground/20 hover:bg-muted/30 transition-all text-center group">
-                <div className="p-3 rounded-sm bg-muted text-foreground group-hover:bg-foreground group-hover:text-background transition-colors">
-                  <Heart size={18} />
-                </div>
-                <div>
-                  <h3 className="text-sm font-medium text-foreground">Wishlist</h3>
-                </div>
-              </button>
-              <button className="flex flex-col items-center gap-3 p-6 border border-border rounded-sm hover:border-foreground/20 hover:bg-muted/30 transition-all text-center group">
-                <div className="p-3 rounded-sm bg-muted text-foreground group-hover:bg-foreground group-hover:text-background transition-colors">
-                  <Settings size={18} />
-                </div>
-                <div>
-                  <h3 className="text-sm font-medium text-foreground">Settings</h3>
-                </div>
-              </button>
-            </div>
           </div>
         </div>
       </main>
