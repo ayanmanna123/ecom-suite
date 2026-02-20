@@ -7,7 +7,7 @@ import { ArrowLeft, Loader2 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 const Checkout = () => {
   const { items, totalPrice, clearCart } = useCart();

@@ -35,7 +35,7 @@ const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
 
     setLoadingWishlist(true);
     try {
-      const response = await fetch(`http://localhost:5000/api/wishlist/${product._id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/wishlist/${product._id}`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${token}`

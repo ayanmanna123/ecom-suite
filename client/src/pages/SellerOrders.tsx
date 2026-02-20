@@ -16,7 +16,7 @@ const SellerOrders = () => {
   useEffect(() => {
     const fetchSellerOrders = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/orders/seller", {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/orders/seller`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -40,7 +40,7 @@ const SellerOrders = () => {
   const handleStatusUpdate = async (orderId: string, productId: string, status: string) => {
     setUpdatingId(`${orderId}-${productId}`);
     try {
-      const response = await fetch(`http://localhost:5000/api/orders/${orderId}/item/${productId}/status`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/orders/${orderId}/item/${productId}/status`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

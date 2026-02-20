@@ -34,7 +34,7 @@ const SellerDashboard = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/orders/seller", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/orders/seller`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -50,7 +50,7 @@ const SellerDashboard = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/products/seller", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/products/seller`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -98,7 +98,7 @@ const SellerDashboard = () => {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
 
     try {
-      const response = await fetch(`http://localhost:5000/api/products/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/products/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`

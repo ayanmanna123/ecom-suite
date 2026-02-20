@@ -30,21 +30,21 @@ const ProductDetail = () => {
     const fetchProductAndRelated = async () => {
       try {
         // Fetch specific product
-        const response = await fetch(`http://localhost:5000/api/products/${id}`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/products/${id}`);
         const data = await response.json();
         
         if (response.ok) {
           setProduct(data);
           
           // Fetch reviews
-          const reviewsResponse = await fetch(`http://localhost:5000/api/reviews/product/${id}`);
+          const reviewsResponse = await fetch(`${import.meta.env.VITE_API_URL}/reviews/product/${id}`);
           const reviewsData = await reviewsResponse.json();
           if (reviewsResponse.ok) {
             setReviews(reviewsData);
           }
           
           // Fetch related products (same category)
-          const allResponse = await fetch(`http://localhost:5000/api/products`);
+          const allResponse = await fetch(`${import.meta.env.VITE_API_URL}/products`);
           const allData = await allResponse.json();
           if (allResponse.ok) {
             const filteredRelated = allData.filter((p: Product) => 
@@ -76,7 +76,7 @@ const ProductDetail = () => {
 
     setSubmittingReview(true);
     try {
-      const response = await fetch("http://localhost:5000/api/reviews", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/reviews`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -98,7 +98,7 @@ const ProductDetail = () => {
         });
         setReviewComment("");
         // Refresh reviews
-        const reviewsResponse = await fetch(`http://localhost:5000/api/reviews/product/${id}`);
+        const reviewsResponse = await fetch(`${import.meta.env.VITE_API_URL}/reviews/product/${id}`);
         const reviewsData = await reviewsResponse.json();
         if (reviewsResponse.ok) {
           setReviews(reviewsData);
