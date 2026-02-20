@@ -1,6 +1,7 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
+import auth from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -67,6 +68,7 @@ router.post('/google', async (req, res) => {
             ]
         });
 
+        let isNew = false;
         if (user) {
             // Update googleId if it's a legacy email user
             if (!user.googleId) {
@@ -75,6 +77,7 @@ router.post('/google', async (req, res) => {
             }
         } else {
             // Create new user
+            isNew = true;
             user = new User({
                 email,
                 name,
@@ -85,10 +88,25 @@ router.post('/google', async (req, res) => {
         }
 
         const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET, { expiresIn: '7d' });
-        res.send({ user, token });
+        res.send({ user, token, isNew });
     } catch (error) {
         console.error('Google auth error:', error);
         res.status(400).send({ error: 'Google authentication failed' });
+    }
+});
+
+// Update role
+router.put('/role', auth, async (req, res) => {
+    try {
+        const { role } = req.body;
+        if (!['customer', 'seller'].includes(role)) {
+            return res.status(400).send({ error: 'Invalid role' });
+        }
+        req.user.role = role;
+        await req.user.save();
+        res.send(req.user);
+    } catch (error) {
+        res.status(400).send({ error: error.message });
     }
 });
 

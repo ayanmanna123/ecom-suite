@@ -56,12 +56,16 @@ const Auth = () => {
     if (!credentialResponse.credential) return;
     setLoading(true);
     try {
-      await googleLogin(credentialResponse.credential);
+      const { isNew } = await googleLogin(credentialResponse.credential);
       toast({
-        title: "Welcome back!",
-        description: "You have successfully signed in with Google.",
+        title: "Welcome!",
+        description: isNew ? "Please complete your profile." : "You have successfully signed in with Google.",
       });
-      navigate("/");
+      if (isNew) {
+        navigate("/complete-profile");
+      } else {
+        navigate("/");
+      }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred";
       toast({
