@@ -10,20 +10,43 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     try {
         const { search, category, minPrice, maxPrice, sort } = req.query;
+        // Initial query object
         let query = {};
 
-        // Search filter
-        if (search) {
-            query.$or = [
-                { title: { $regex: search, $options: 'i' } },
-                { description: { $regex: search, $options: 'i' } }
-            ];
-        }
-
-        // Category filter
+        // Category filter (comes before search to allow narrowing)
         if (category && category !== 'All') {
             query.category = category;
         }
+
+        // Search filter
+        if (search) {
+            const searchRegex = { $regex: search, $options: 'i' };
+
+            // If category matches search, we want all items in that category 
+            // OR items that match search in title/desc even if in other categories
+            // (But if category is already set, we usually want to search WITHIN it)
+
+            if (query.category) {
+                // Searching WITHIN a category
+                // We'll search title/desc, but if the search term matches the category name,
+                // we should effectively show the whole category unless searching for something specific.
+                if (search.toLowerCase() !== category.toLowerCase()) {
+                    query.$or = [
+                        { title: searchRegex },
+                        { description: searchRegex }
+                    ];
+                }
+            } else {
+                // Global search
+                query.$or = [
+                    { title: searchRegex },
+                    { description: searchRegex },
+                    { category: searchRegex }
+                ];
+            }
+        }
+
+        console.log('Final Search Query:', JSON.stringify(query, null, 2));
 
         // Price range filter
         if (minPrice || maxPrice) {
@@ -71,6 +94,56 @@ router.get('/seller', auth, authorize('seller'), async (req, res) => {
         const products = await Product.find({ seller: req.user._id });
         res.json(products);
     } catch (err) {
+        res.status(500).json({ msg: 'Server Error' });
+    }
+});
+
+// @route   GET /api/products/suggestions
+// @desc    Get product suggestions for search autocomplete
+// @access  Public
+router.get('/suggestions', async (req, res) => {
+    try {
+        const { q } = req.query;
+        if (!q) return res.json([]);
+
+        const suggestions = await Product.find({
+            $or: [
+                { title: { $regex: q, $options: 'i' } },
+                { category: { $regex: q, $options: 'i' } }
+            ]
+        })
+            .select('title category')
+            .limit(10);
+
+        res.json(suggestions);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ msg: 'Server Error' });
+    }
+});
+
+// @route   GET /api/products/:id/similar
+// @desc    Get similar products
+// @access  Public
+router.get('/:id/similar', async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id);
+        if (!product) {
+            return res.status(404).json({ msg: 'Product not found' });
+        }
+
+        const similarProducts = await Product.find({
+            _id: { $ne: product._id },
+            category: product.category
+        })
+            .limit(4);
+
+        res.json(similarProducts);
+    } catch (err) {
+        console.error(err.message);
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ msg: 'Product not found' });
+        }
         res.status(500).json({ msg: 'Server Error' });
     }
 });

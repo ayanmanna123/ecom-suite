@@ -9,6 +9,7 @@ interface Review {
   };
   rating: number;
   comment: string;
+  sentiment?: 'positive' | 'neutral' | 'negative';
   createdAt: string;
 }
 
@@ -78,6 +79,15 @@ const ReviewSection = ({ product, reviews }: ReviewSectionProps) => {
                     <span className="text-[10px] text-muted-foreground uppercase tracking-widest">
                       Verified Purchase
                     </span>
+                    {review.sentiment && (
+                      <span className={`ml-2 text-[10px] uppercase tracking-widest font-bold ${
+                        review.sentiment === 'positive' ? 'text-success' : 
+                        review.sentiment === 'negative' ? 'text-destructive' : 
+                        'text-muted-foreground'
+                      }`}>
+                        • {review.sentiment}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <span className="text-[11px] text-muted-foreground bg-muted px-2 py-0.5 rounded-sm">

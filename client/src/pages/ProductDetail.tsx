@@ -63,14 +63,11 @@ const ProductDetail = () => {
           // Fetch reviews
           fetchReviews();
           
-          // Fetch related products (same category)
-          const allResponse = await fetch(`${import.meta.env.VITE_API_URL}/products`);
-          const allData = await allResponse.json();
-          if (allResponse.ok) {
-            const filteredRelated = allData.filter((p: Product) => 
-              p.category === data.category && p._id !== data._id
-            ).slice(0, 4);
-            setRelated(filteredRelated);
+          // Fetch related products (same category) using the new optimized endpoint
+          const similarResponse = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/products/${id}/similar`);
+          const similarData = await similarResponse.json();
+          if (similarResponse.ok) {
+            setRelated(similarData);
           }
         }
       } catch (error) {
