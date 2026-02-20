@@ -79,8 +79,18 @@ const Navbar = () => {
           <div className="h-4 w-[1px] bg-border mx-1 hidden sm:block"></div>
 
           {user ? (
-            <Link to="/profile" className="p-2 text-muted-foreground hover:text-foreground transition-colors" aria-label="Profile">
-              <User size={18} />
+            <Link to="/profile" className="flex items-center gap-2 p-1 hover:bg-muted rounded-full transition-colors" aria-label="Profile">
+              {user.picture ? (
+                <img 
+                  src={user.picture} 
+                  alt={user.name || 'User'} 
+                  className="w-8 h-8 rounded-full object-cover border border-border"
+                />
+              ) : (
+                <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center border border-border">
+                  <User size={18} className="text-muted-foreground" />
+                </div>
+              )}
             </Link>
           ) : (
             <Link 

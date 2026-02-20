@@ -60,8 +60,16 @@ const Profile = () => {
         <div className="max-w-4xl mx-auto">
           <header className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 border-b border-border pb-12">
             <div className="flex items-center gap-6">
-              <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center text-muted-foreground">
-                <User size={40} strokeWidth={1.5} />
+              <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center text-muted-foreground overflow-hidden border border-border">
+                {user.picture ? (
+                  <img 
+                    src={user.picture} 
+                    alt={user.name || 'User'} 
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <User size={40} strokeWidth={1.5} />
+                )}
               </div>
               <div>
                 <h1 className="font-display text-3xl font-semibold mb-1 text-foreground">My Account</h1>
