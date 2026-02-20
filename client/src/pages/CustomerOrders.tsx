@@ -92,7 +92,7 @@ const CustomerOrders = () => {
                           </div>
                           <div className="flex items-center gap-2 text-foreground font-medium">
                             <CreditCard size={14} className="text-muted-foreground" />
-                            <span>${order.totalAmount.toFixed(2)}</span>
+                            <span>₹{order.totalAmount.toFixed(2)}</span>
                           </div>
                         </div>
                       </div>

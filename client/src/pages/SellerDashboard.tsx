@@ -156,7 +156,7 @@ const SellerDashboard = () => {
           <div className="bg-card border border-border rounded-sm p-6 shadow-sm">
             <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1 block">Total Revenue</span>
             <div className="flex items-end justify-between">
-              <span className="text-3xl font-semibold">${metrics.totalRevenue.toFixed(2)}</span>
+              <span className="text-3xl font-semibold">₹{metrics.totalRevenue.toFixed(2)}</span>
               <span className="text-xs text-green-600 font-medium">+12% from last month</span>
             </div>
           </div>
@@ -226,7 +226,7 @@ const SellerDashboard = () => {
                         </div>
                       </td>
                       <td className="p-4 text-sm text-muted-foreground capitalize">{product.category}</td>
-                      <td className="p-4 text-sm font-medium">${product.price.toFixed(2)}</td>
+                      <td className="p-4 text-sm font-medium">₹{product.price.toFixed(2)}</td>
                       <td className="p-4 text-sm">
                         <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${
                           product.stock > 10 ? 'bg-green-100 text-green-700' : 

@@ -37,7 +37,7 @@ const CartDrawer = () => {
             </div>
           ) : (
             items.map((item) => (
-              <div key={item.product.id} className="flex gap-4">
+              <div key={item.product._id} className="flex gap-4">
                 <img
                   src={item.product.images[0]}
                   alt={item.product.title}
@@ -45,17 +45,17 @@ const CartDrawer = () => {
                 />
                 <div className="flex-1 min-w-0">
                   <h3 className="text-sm font-medium text-foreground truncate">{item.product.title}</h3>
-                  <p className="text-sm text-muted-foreground mt-0.5">${item.product.price}</p>
+                  <p className="text-sm text-muted-foreground mt-0.5">₹{item.product.price}</p>
                   <div className="flex items-center gap-2 mt-3">
                     <button
-                      onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
+                      onClick={() => updateQuantity(item.product._id, item.quantity - 1)}
                       className="w-7 h-7 flex items-center justify-center border border-border rounded-sm text-muted-foreground hover:text-foreground transition-colors"
                     >
                       <Minus size={12} />
                     </button>
                     <span className="text-sm font-medium w-6 text-center">{item.quantity}</span>
                     <button
-                      onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
+                      onClick={() => updateQuantity(item.product._id, item.quantity + 1)}
                       className="w-7 h-7 flex items-center justify-center border border-border rounded-sm text-muted-foreground hover:text-foreground transition-colors"
                     >
                       <Plus size={12} />
@@ -63,7 +63,7 @@ const CartDrawer = () => {
                   </div>
                 </div>
                 <button
-                  onClick={() => removeItem(item.product.id)}
+                  onClick={() => removeItem(item.product._id)}
                   className="text-muted-foreground hover:text-foreground transition-colors self-start"
                 >
                   <X size={16} />
@@ -78,7 +78,7 @@ const CartDrawer = () => {
           <div className="border-t border-border p-6 space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">Subtotal</span>
-              <span className="text-lg font-display font-semibold">${totalPrice.toFixed(2)}</span>
+              <span className="text-lg font-display font-semibold">₹{totalPrice.toFixed(2)}</span>
             </div>
             <p className="text-xs text-muted-foreground">Shipping calculated at checkout</p>
             <Link

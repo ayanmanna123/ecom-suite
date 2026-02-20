@@ -34,6 +34,13 @@ const Products = () => {
     fetchProducts();
   }, []);
 
+  // Update selected category when URL param changes
+  useEffect(() => {
+    if (categoryParam !== selectedCategory) {
+      setSelectedCategory(categoryParam);
+    }
+  }, [categoryParam]);
+
   const filteredProducts = useMemo(() => {
     let result = [...productsList];
 

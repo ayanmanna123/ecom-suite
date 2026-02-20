@@ -113,9 +113,9 @@ const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
           <span className="text-[11px] text-muted-foreground">({product.reviewCount})</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-sm font-semibold text-foreground">${product.price}</span>
+          <span className="text-sm font-semibold text-foreground">₹{product.price}</span>
           {product.originalPrice && (
-            <span className="text-xs text-muted-foreground line-through">${product.originalPrice}</span>
+            <span className="text-xs text-muted-foreground line-through">₹{product.originalPrice}</span>
           )}
         </div>
       </Link>

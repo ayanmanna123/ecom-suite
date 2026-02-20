@@ -281,7 +281,7 @@ const Checkout = () => {
                 className="w-full bg-primary text-primary-foreground py-3 rounded-sm text-sm font-medium hover:bg-primary/90 transition-colors mt-4 flex items-center justify-center gap-2"
               >
                 {loading ? <Loader2 className="animate-spin" size={16} /> : null}
-                Place Order — ${discountedTotal.toFixed(2)}
+                Place Order — ₹{discountedTotal.toFixed(2)}
               </button>
               <p className="text-xs text-muted-foreground text-center">Managed by your custom MERN backend</p>
             </div>
@@ -298,15 +298,15 @@ const Checkout = () => {
                     <p className="text-sm font-medium text-foreground truncate">{item.product.title}</p>
                     <p className="text-xs text-muted-foreground">Qty: {item.quantity}</p>
                   </div>
-                  <span className="text-sm font-medium text-foreground">${(item.product.price * item.quantity).toFixed(2)}</span>
+                  <span className="text-sm font-medium text-foreground">₹{(item.product.price * item.quantity).toFixed(2)}</span>
                 </div>
               ))}
             </div>
             <div className="border-t border-border mt-6 pt-4 space-y-2">
-              <div className="flex justify-between text-sm"><span className="text-muted-foreground">Subtotal</span><span>${totalPrice.toFixed(2)}</span></div>
+              <div className="flex justify-between text-sm"><span className="text-muted-foreground">Subtotal</span><span>₹{totalPrice.toFixed(2)}</span></div>
               <div className="flex justify-between text-sm"><span className="text-muted-foreground">Shipping</span><span>Free</span></div>
               {discount > 0 && (
-                <div className="flex justify-between text-sm text-green-600"><span className="font-medium">Discount ({discount}%)</span><span>-${(totalPrice * (discount / 100)).toFixed(2)}</span></div>
+                <div className="flex justify-between text-sm text-green-600"><span className="font-medium">Discount ({discount}%)</span><span>-₹{(totalPrice * (discount / 100)).toFixed(2)}</span></div>
               )}
               <div className="pt-4 border-t border-border">
                 <div className="flex gap-2">
@@ -332,7 +332,7 @@ const Checkout = () => {
                   </p>
                 )}
               </div>
-              <div className="flex justify-between text-sm font-semibold pt-2 border-t border-border"><span>Total</span><span className="font-display text-lg">${discountedTotal.toFixed(2)}</span></div>
+              <div className="flex justify-between text-sm font-semibold pt-2 border-t border-border"><span>Total</span><span className="font-display text-lg">₹{discountedTotal.toFixed(2)}</span></div>
             </div>
           </div>
         </div>

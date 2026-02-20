@@ -41,7 +41,7 @@ const Navbar = () => {
             Accessories
           </Link>
           <Link to="/products?category=Home" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-            Home
+            Home Decor
           </Link>
           {user?.role === 'seller' && (
             <>
@@ -93,26 +93,66 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile menu */}
+      {/* Mobile menu drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-border bg-background px-4 py-4 space-y-3">
-          <Link to="/" className="block text-sm font-medium text-foreground" onClick={() => setMobileMenuOpen(false)}>Home</Link>
-          <Link to="/products" className="block text-sm font-medium text-foreground" onClick={() => setMobileMenuOpen(false)}>Shop All</Link>
-          <Link to="/products?category=Clothing" className="block text-sm font-medium text-foreground" onClick={() => setMobileMenuOpen(false)}>Clothing</Link>
-          <Link to="/products?category=Accessories" className="block text-sm font-medium text-foreground" onClick={() => setMobileMenuOpen(false)}>Accessories</Link>
-          <Link to="/products?category=Home" className="block text-sm font-medium text-foreground" onClick={() => setMobileMenuOpen(false)}>Home</Link>
-          {user?.role === 'seller' && (
-            <Link to="/seller" className="block text-sm font-semibold text-primary" onClick={() => setMobileMenuOpen(false)}>Seller Hub</Link>
-          )}
+        <>
+          {/* Overlay */}
+          <div 
+            className="fixed inset-0 z-50 bg-foreground/30 backdrop-blur-sm lg:hidden" 
+            onClick={() => setMobileMenuOpen(false)} 
+          />
           
-          <div className="pt-2 border-t border-border">
-            {user ? (
-              <Link to="/profile" className="block text-sm font-medium text-foreground" onClick={() => setMobileMenuOpen(false)}>My Account</Link>
-            ) : (
-              <Link to="/auth" className="block text-sm font-medium text-foreground" onClick={() => setMobileMenuOpen(false)}>Sign In</Link>
-            )}
+          {/* Drawer */}
+          <div className="fixed left-0 top-0 z-50 h-full w-[280px] bg-background border-r border-border animate-slide-in-left flex flex-col lg:hidden">
+            <div className="flex items-center justify-between p-4 border-b border-border">
+              <img src="/logo.png" alt="MAISON" className="h-10 w-auto object-contain" />
+              <button 
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <X size={20} />
+              </button>
+            </div>
+            
+            <div className="flex-1 overflow-y-auto p-6 space-y-6">
+              <div className="space-y-4">
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">Categories</p>
+                <nav className="flex flex-col gap-4">
+                  <Link to="/" className="text-base font-medium text-foreground" onClick={() => setMobileMenuOpen(false)}>Home</Link>
+                  <Link to="/products" className="text-base font-medium text-foreground" onClick={() => setMobileMenuOpen(false)}>Shop All</Link>
+                  <Link to="/products?category=Clothing" className="text-base font-medium text-foreground" onClick={() => setMobileMenuOpen(false)}>Clothing</Link>
+                  <Link to="/products?category=Accessories" className="text-base font-medium text-foreground" onClick={() => setMobileMenuOpen(false)}>Accessories</Link>
+                  <Link to="/products?category=Home" className="text-base font-medium text-foreground" onClick={() => setMobileMenuOpen(false)}>Home Decor</Link>
+                </nav>
+              </div>
+
+              {user?.role === 'seller' && (
+                <div className="pt-6 border-t border-border space-y-4">
+                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">Seller Hub</p>
+                  <nav className="flex flex-col gap-4">
+                    <Link to="/seller" className="text-base font-semibold text-primary" onClick={() => setMobileMenuOpen(false)}>Dashboard</Link>
+                    <Link to="/seller/orders" className="text-base font-semibold text-primary" onClick={() => setMobileMenuOpen(false)}>Manage Orders</Link>
+                  </nav>
+                </div>
+              )}
+              
+              <div className="pt-6 border-t border-border space-y-4">
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">Account</p>
+                <nav className="flex flex-col gap-4">
+                  {user ? (
+                    <>
+                      <Link to="/profile" className="text-base font-medium text-foreground" onClick={() => setMobileMenuOpen(false)}>My Profile</Link>
+                      <Link to="/orders" className="text-base font-medium text-foreground" onClick={() => setMobileMenuOpen(false)}>My Orders</Link>
+                      <Link to="/wishlist" className="text-base font-medium text-foreground" onClick={() => setMobileMenuOpen(false)}>Wishlist</Link>
+                    </>
+                  ) : (
+                    <Link to="/auth" className="text-base font-medium text-foreground" onClick={() => setMobileMenuOpen(false)}>Sign In / Register</Link>
+                  )}
+                </nav>
+              </div>
+            </div>
           </div>
-        </div>
+        </>
       )}
     </header>
   );

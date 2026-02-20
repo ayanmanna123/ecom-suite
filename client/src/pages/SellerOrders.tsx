@@ -133,7 +133,7 @@ const SellerOrders = () => {
                   </div>
                   <div className="flex flex-col items-end">
                     <span className="text-xs uppercase tracking-wider text-muted-foreground">Order Total</span>
-                    <span className="text-sm font-bold text-primary">${order.totalAmount.toFixed(2)}</span>
+                    <span className="text-sm font-bold text-primary">₹{order.totalAmount.toFixed(2)}</span>
                   </div>
                 </div>
 
@@ -153,7 +153,7 @@ const SellerOrders = () => {
                             <div className="flex-1 min-w-0">
                               <h4 className="text-sm font-medium truncate">{item.title}</h4>
                               <p className="text-xs text-muted-foreground">
-                                Qty: {item.quantity} × ${item.priceAtPurchase.toFixed(2)}
+                                Qty: {item.quantity} × ₹{item.priceAtPurchase.toFixed(2)}
                               </p>
                               <div className="mt-1 flex items-center gap-2">
                                 <span className={`text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-sm ${

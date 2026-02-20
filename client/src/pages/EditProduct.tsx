@@ -198,7 +198,7 @@ const EditProduct = () => {
 
             <div className="grid md:grid-cols-3 gap-6">
               <div className="space-y-2">
-                <Label htmlFor="price">Price ($)</Label>
+                <Label htmlFor="price">Price (₹)</Label>
                 <Input
                   id="price"
                   type="number"
@@ -211,7 +211,7 @@ const EditProduct = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="originalPrice">Original Price ($)</Label>
+                <Label htmlFor="originalPrice">Original Price (₹)</Label>
                 <Input
                   id="originalPrice"
                   type="number"

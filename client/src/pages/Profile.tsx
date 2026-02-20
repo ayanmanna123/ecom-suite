@@ -150,7 +150,7 @@ const Profile = () => {
                         
                         <div>
                           <p className="text-xs text-muted-foreground uppercase tracking-widest mb-1">Total</p>
-                          <p className="text-sm font-semibold">${order.totalAmount.toFixed(2)}</p>
+                          <p className="text-sm font-semibold">₹{order.totalAmount.toFixed(2)}</p>
                         </div>
                       </div>
                       <div className="flex flex-wrap gap-3">
