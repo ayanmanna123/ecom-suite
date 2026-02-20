@@ -1,13 +1,72 @@
-import { Link } from "react-router-dom";
-import { Search, ShoppingBag, Heart, Menu, X, User } from "lucide-react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Search, ShoppingBag, Heart, Menu, X, User, Loader2 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const Navbar = () => {
   const { totalItems, setIsOpen } = useCart();
   const { user } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const searchRef = useRef<HTMLDivElement>(null);
+  
+  // Get search from URL
+  const searchParams = new URLSearchParams(location.search);
+  const searchFromUrl = searchParams.get("search") || "";
+  
+  const [searchQuery, setSearchQuery] = useState(searchFromUrl);
+  const [suggestions, setSuggestions] = useState<{ title: string; category: string }[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Sync state with URL when it changes
+  useEffect(() => {
+    setSearchQuery(searchFromUrl);
+  }, [searchFromUrl]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    const fetchSuggestions = async () => {
+      if (searchQuery.length < 2) {
+        setSuggestions([]);
+        return;
+      }
+
+      try {
+        const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+        const response = await fetch(`${baseUrl}/products/suggestions?q=${searchQuery}`);
+        const data = await response.json();
+        setSuggestions(data);
+        setShowSuggestions(true);
+      } catch (error) {
+        console.error("Error fetching suggestions:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    const debounceTimer = setTimeout(fetchSuggestions, 300);
+    return () => clearTimeout(debounceTimer);
+  }, [searchQuery]);
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/products?search=${searchQuery}`);
+      setShowSuggestions(false);
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
@@ -57,7 +116,44 @@ const Navbar = () => {
 
         {/* Actions */}
         <div className="flex items-center gap-3">
-          <Link to="/products" className="p-2 text-muted-foreground hover:text-foreground transition-colors" aria-label="Search">
+          <div className="relative hidden md:block" ref={searchRef}>
+            <form onSubmit={handleSearch} className="relative">
+              <input
+                type="text"
+                placeholder="Search products..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onFocus={() => searchQuery.length >= 2 && setShowSuggestions(true)}
+                className="w-48 lg:w-64 h-9 bg-muted/50 border border-transparent focus:border-primary/20 focus:bg-background transition-all rounded-full px-4 pr-10 text-sm focus:outline-none"
+              />
+              <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+                {isLoading ? <Loader2 size={16} className="animate-spin" /> : <Search size={16} />}
+              </button>
+            </form>
+
+            {showSuggestions && suggestions.length > 0 && (
+              <div className="absolute top-full mt-2 left-0 w-full bg-background border border-border rounded-xl shadow-xl overflow-hidden z-50 animate-in fade-in slide-in-from-top-2">
+                <div className="py-2">
+                  {suggestions.map((item, index) => (
+                    <button
+                      key={index}
+                      onClick={() => {
+                        setSearchQuery(item.title);
+                        setShowSuggestions(false);
+                        navigate(`/products?category=${item.category}&search=${item.title}`);
+                      }}
+                      className="w-full px-4 py-2 text-left hover:bg-muted transition-colors flex flex-col"
+                    >
+                      <span className="text-sm font-medium">{item.title}</span>
+                      <span className="text-xs text-muted-foreground">{item.category}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <Link to="/products" className="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors" aria-label="Search">
             <Search size={18} />
           </Link>
           <Link to="/wishlist" className="p-2 text-muted-foreground hover:text-foreground transition-colors" aria-label="Wishlist">

@@ -9,20 +9,41 @@ const router = express.Router();
 // @access  Public
 router.get('/', async (req, res) => {
     try {
-        const { search, category, minPrice, maxPrice, sort } = req.query;
+        const { search, category, minPrice, maxPrice, sort, page = 1, limit = 12 } = req.query;
+        const skip = (parseInt(page) - 1) * parseInt(limit);
+        const limitValue = parseInt(limit);
+
+        // Initial query object
         let query = {};
+
+        // Category filter (comes before search to allow narrowing)
+        if (category && category !== 'All') {
+            const categories = category.split(',');
+            if (categories.length > 1) {
+                query.category = { $in: categories };
+            } else {
+                query.category = category;
+            }
+        }
 
         // Search filter
         if (search) {
-            query.$or = [
-                { title: { $regex: search, $options: 'i' } },
-                { description: { $regex: search, $options: 'i' } }
-            ];
-        }
+            const searchRegex = { $regex: search, $options: 'i' };
 
-        // Category filter
-        if (category && category !== 'All') {
-            query.category = category;
+            if (query.category) {
+                if (search.toLowerCase() !== category.toLowerCase()) {
+                    query.$or = [
+                        { title: searchRegex },
+                        { description: searchRegex }
+                    ];
+                }
+            } else {
+                query.$or = [
+                    { title: searchRegex },
+                    { description: searchRegex },
+                    { category: searchRegex }
+                ];
+            }
         }
 
         // Price range filter
@@ -50,13 +71,21 @@ router.get('/', async (req, res) => {
                     productsQuery = productsQuery.sort({ createdAt: -1 });
                     break;
                 default:
-                    // Default sorting (featured/default)
                     break;
             }
         }
 
-        const products = await productsQuery;
-        res.json(products);
+        // Pagination
+        const total = await Product.countDocuments(query);
+        const products = await productsQuery.skip(skip).limit(limitValue);
+
+        res.json({
+            products,
+            total,
+            page: parseInt(page),
+            pages: Math.ceil(total / limitValue),
+            hasMore: skip + products.length < total
+        });
     } catch (err) {
         console.error(err.message);
         res.status(500).json({ msg: 'Server Error' });
@@ -71,6 +100,56 @@ router.get('/seller', auth, authorize('seller'), async (req, res) => {
         const products = await Product.find({ seller: req.user._id });
         res.json(products);
     } catch (err) {
+        res.status(500).json({ msg: 'Server Error' });
+    }
+});
+
+// @route   GET /api/products/suggestions
+// @desc    Get product suggestions for search autocomplete
+// @access  Public
+router.get('/suggestions', async (req, res) => {
+    try {
+        const { q } = req.query;
+        if (!q) return res.json([]);
+
+        const suggestions = await Product.find({
+            $or: [
+                { title: { $regex: q, $options: 'i' } },
+                { category: { $regex: q, $options: 'i' } }
+            ]
+        })
+            .select('title category')
+            .limit(10);
+
+        res.json(suggestions);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ msg: 'Server Error' });
+    }
+});
+
+// @route   GET /api/products/:id/similar
+// @desc    Get similar products
+// @access  Public
+router.get('/:id/similar', async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id);
+        if (!product) {
+            return res.status(404).json({ msg: 'Product not found' });
+        }
+
+        const similarProducts = await Product.find({
+            _id: { $ne: product._id },
+            category: product.category
+        })
+            .limit(4);
+
+        res.json(similarProducts);
+    } catch (err) {
+        console.error(err.message);
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ msg: 'Product not found' });
+        }
         res.status(500).json({ msg: 'Server Error' });
     }
 });

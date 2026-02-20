@@ -1,0 +1,2405 @@
+[
+  {
+    "title": "Wireless Bluetooth Headphones",
+    "description": "Premium noise-cancelling wireless headphones with 30-hour battery life, deep bass, and crystal-clear audio. Foldable design with soft ear cushions for all-day comfort.",
+    "price": 49.99,
+    "originalPrice": 79.99,
+    "category": "Electronics",
+    "images": [
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500",
+      "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=500"
+    ],
+    "rating": 4.5,
+    "reviewCount": 1243,
+    "stock": 85,
+    "badge": "Best Seller",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2024-11-01T08:00:00.000Z"
+    }
+  },
+  {
+    "title": "Men's Running Sneakers",
+    "description": "Lightweight and breathable running shoes with cushioned sole and arch support. Ideal for daily jogging, gym workouts, and casual wear.",
+    "price": 59.99,
+    "originalPrice": 89.99,
+    "category": "Footwear",
+    "images": [
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500",
+      "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=500"
+    ],
+    "rating": 4.3,
+    "reviewCount": 876,
+    "stock": 120,
+    "badge": "New Arrival",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2024-11-05T09:00:00.000Z"
+    }
+  },
+  {
+    "title": "Stainless Steel Water Bottle",
+    "description": "Double-wall vacuum insulated 1L stainless steel water bottle. Keeps drinks cold for 24 hours and hot for 12 hours. BPA-free and leak-proof lid.",
+    "price": 24.99,
+    "originalPrice": 34.99,
+    "category": "Kitchen",
+    "images": [
+      "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500"
+    ],
+    "rating": 4.7,
+    "reviewCount": 2345,
+    "stock": 200,
+    "badge": "Top Rated",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2024-10-20T10:00:00.000Z"
+    }
+  },
+  {
+    "title": "Mechanical Gaming Keyboard",
+    "description": "RGB backlit mechanical keyboard with tactile blue switches, anti-ghosting, and durable aluminum frame. Compatible with Windows and Mac.",
+    "price": 79.99,
+    "originalPrice": 119.99,
+    "category": "Electronics",
+    "images": [
+      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500",
+      "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=500"
+    ],
+    "rating": 4.6,
+    "reviewCount": 987,
+    "stock": 60,
+    "badge": "Sale",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2024-11-10T11:00:00.000Z"
+    }
+  },
+  {
+    "title": "Yoga Mat with Carrying Strap",
+    "description": "Eco-friendly non-slip yoga mat, 6mm thick for joint support. Includes a carrying strap. Suitable for yoga, pilates, and floor exercises.",
+    "price": 29.99,
+    "originalPrice": null,
+    "category": "Sports & Fitness",
+    "images": [
+      "https://images.unsplash.com/photo-1601925228246-4b1be66a9fc3?w=500"
+    ],
+    "rating": 4.4,
+    "reviewCount": 654,
+    "stock": 150,
+    "badge": null,
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2024-10-15T07:00:00.000Z"
+    }
+  },
+  {
+    "title": "Ceramic Coffee Mug Set (4 Pack)",
+    "description": "Set of 4 minimalist ceramic coffee mugs, 350ml each. Microwave and dishwasher safe. Available in matte white with subtle color accents.",
+    "price": 34.99,
+    "originalPrice": 49.99,
+    "category": "Kitchen",
+    "images": [
+      "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=500"
+    ],
+    "rating": 4.2,
+    "reviewCount": 432,
+    "stock": 95,
+    "badge": "Sale",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2024-11-03T12:00:00.000Z"
+    }
+  },
+  {
+    "title": "Portable Phone Stand",
+    "description": "Adjustable aluminum phone and tablet stand for desk use. Compatible with all smartphones and tablets up to 13 inches. Foldable and portable.",
+    "price": 14.99,
+    "originalPrice": 19.99,
+    "category": "Electronics",
+    "images": [
+      "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=500"
+    ],
+    "rating": 4.1,
+    "reviewCount": 1120,
+    "stock": 300,
+    "badge": null,
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2024-09-28T06:00:00.000Z"
+    }
+  },
+  {
+    "title": "Women's Classic Denim Jacket",
+    "description": "Timeless denim jacket for women with button closure, two chest pockets, and comfortable stretch fabric. Available in classic blue wash.",
+    "price": 54.99,
+    "originalPrice": 74.99,
+    "category": "Clothing",
+    "images": [
+      "https://images.unsplash.com/photo-1551537482-f2075a1d41f2?w=500"
+    ],
+    "rating": 4.5,
+    "reviewCount": 789,
+    "stock": 70,
+    "badge": "New Arrival",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2024-11-08T14:00:00.000Z"
+    }
+  },
+  {
+    "title": "LED Desk Lamp with USB Charging",
+    "description": "Eye-care LED desk lamp with 5 brightness levels, 3 color modes, and a built-in USB charging port. Touch control and memory function.",
+    "price": 39.99,
+    "originalPrice": 55.99,
+    "category": "Home & Office",
+    "images": [
+      "https://images.unsplash.com/photo-1573297888382-b2bfbd0c22e8?w=500"
+    ],
+    "rating": 4.6,
+    "reviewCount": 543,
+    "stock": 110,
+    "badge": "Best Seller",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2024-10-10T09:30:00.000Z"
+    }
+  },
+  {
+    "title": "Backpack 30L Travel Bag",
+    "description": "Durable 30L waterproof backpack with USB charging port, laptop compartment (fits up to 15.6\"), and multiple organizer pockets.",
+    "price": 44.99,
+    "originalPrice": 64.99,
+    "category": "Bags & Accessories",
+    "images": [
+      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500"
+    ],
+    "rating": 4.4,
+    "reviewCount": 1032,
+    "stock": 88,
+    "badge": "Sale",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2024-11-12T10:00:00.000Z"
+    }
+  },
+  {
+    "title": "Smart Fitness Tracker Band",
+    "description": "Waterproof fitness tracker with heart rate monitor, sleep tracker, step counter, and multi-sport modes. Compatible with iOS and Android.",
+    "price": 34.99,
+    "originalPrice": 49.99,
+    "category": "Electronics",
+    "images": [
+      "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=500"
+    ],
+    "rating": 4.3,
+    "reviewCount": 2100,
+    "stock": 175,
+    "badge": "Top Rated",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2024-10-25T08:00:00.000Z"
+    }
+  },
+  {
+    "title": "Wooden Cutting Board Set",
+    "description": "Set of 3 premium acacia wood cutting boards in different sizes. Juice grooves on one side, smooth surface on the other. Easy to clean.",
+    "price": 39.99,
+    "originalPrice": null,
+    "category": "Kitchen",
+    "images": [
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500"
+    ],
+    "rating": 4.8,
+    "reviewCount": 876,
+    "stock": 55,
+    "badge": "Top Rated",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2024-09-15T11:00:00.000Z"
+    }
+  },
+  {
+    "title": "Sunglasses UV400 Polarized",
+    "description": "Unisex polarized sunglasses with UV400 protection, lightweight TR90 frame, and scratch-resistant lenses. Includes protective case.",
+    "price": 19.99,
+    "originalPrice": 29.99,
+    "category": "Accessories",
+    "images": [
+      "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=500"
+    ],
+    "rating": 4.2,
+    "reviewCount": 654,
+    "stock": 230,
+    "badge": null,
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2024-10-05T13:00:00.000Z"
+    }
+  },
+  {
+    "title": "Non-Stick Frying Pan 28cm",
+    "description": "Granite-coated non-stick frying pan with stay-cool handle. Compatible with all stovetops including induction. PFOA-free and dishwasher safe.",
+    "price": 32.99,
+    "originalPrice": 44.99,
+    "category": "Kitchen",
+    "images": [
+      "https://images.unsplash.com/photo-1584990347449-a1b6c4b6ffc8?w=500"
+    ],
+    "rating": 4.5,
+    "reviewCount": 1456,
+    "stock": 130,
+    "badge": "Best Seller",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2024-11-07T07:30:00.000Z"
+    }
+  },
+  {
+    "title": "Indoor Plant Pot Set (3 Pcs)",
+    "description": "Set of 3 modern terracotta plant pots with drainage holes and saucers. Sizes: 10cm, 14cm, 18cm. Perfect for succulents and small houseplants.",
+    "price": 22.99,
+    "originalPrice": 29.99,
+    "category": "Home & Garden",
+    "images": [
+      "https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=500"
+    ],
+    "rating": 4.4,
+    "reviewCount": 387,
+    "stock": 180,
+    "badge": null,
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2024-10-18T15:00:00.000Z"
+    }
+  },
+  {
+    "title": "Men's Slim Fit Chino Pants",
+    "description": "Classic slim fit chino trousers made from stretch cotton blend. Versatile for office and casual wear. Available in multiple colors.",
+    "price": 42.99,
+    "originalPrice": 59.99,
+    "category": "Clothing",
+    "images": [
+      "https://images.unsplash.com/photo-1552902865-b72c031ac5ea?w=500"
+    ],
+    "rating": 4.1,
+    "reviewCount": 512,
+    "stock": 95,
+    "badge": "Sale",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2024-11-14T09:00:00.000Z"
+    }
+  },
+  {
+    "title": "Resistance Bands Set (5 Levels)",
+    "description": "Set of 5 latex resistance bands with different resistance levels (10–50 lbs). Includes a carrying bag and exercise guide. For home workouts.",
+    "price": 17.99,
+    "originalPrice": 24.99,
+    "category": "Sports & Fitness",
+    "images": [
+      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500"
+    ],
+    "rating": 4.6,
+    "reviewCount": 1875,
+    "stock": 250,
+    "badge": "Best Seller",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2024-10-30T10:00:00.000Z"
+    }
+  },
+  {
+    "title": "Wireless Charging Pad",
+    "description": "10W fast wireless charger compatible with all Qi-enabled devices. Slim design with LED indicator and anti-slip surface. Includes USB-C cable.",
+    "price": 18.99,
+    "originalPrice": 27.99,
+    "category": "Electronics",
+    "images": [
+      "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=500"
+    ],
+    "rating": 4.3,
+    "reviewCount": 934,
+    "stock": 165,
+    "badge": null,
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2024-11-02T11:30:00.000Z"
+    }
+  },
+  {
+    "title": "Scented Soy Candle Set",
+    "description": "Set of 4 handcrafted soy wax candles in glass jars. Fragrances: Lavender, Vanilla, Sandalwood, and Citrus. Each burns for up to 40 hours.",
+    "price": 27.99,
+    "originalPrice": 39.99,
+    "category": "Home & Decor",
+    "images": [
+      "https://images.unsplash.com/photo-1602526212974-d6b8b8d9dcc4?w=500"
+    ],
+    "rating": 4.7,
+    "reviewCount": 728,
+    "stock": 90,
+    "badge": "Top Rated",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2024-10-22T16:00:00.000Z"
+    }
+  },
+  {
+    "title": "Kids' Educational Building Blocks (100 Pcs)",
+    "description": "100-piece colorful building block set for children aged 3+. BPA-free plastic, smooth edges, and compatible with major block brands. Encourages creativity.",
+    "price": 21.99,
+    "originalPrice": 29.99,
+    "category": "Toys & Kids",
+    "images": [
+      "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=500"
+    ],
+    "rating": 4.5,
+    "reviewCount": 1102,
+    "stock": 140,
+    "badge": "New Arrival",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2024-11-11T08:00:00.000Z"
+    }
+  },
+  {
+    "title": "Books Item #21",
+    "description": "High-quality books product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 98.04,
+    "originalPrice": null,
+    "category": "Books",
+    "images": [
+      "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 5,
+    "reviewCount": 4088,
+    "stock": 424,
+    "badge": null,
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-18T06:42:32.540Z"
+    }
+  },
+  {
+    "title": "Books Item #22",
+    "description": "High-quality books product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 185.2,
+    "originalPrice": 273.38,
+    "category": "Books",
+    "images": [
+      "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.3,
+    "reviewCount": 14,
+    "stock": 489,
+    "badge": null,
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-10T14:53:27.725Z"
+    }
+  },
+  {
+    "title": "Home & Kitchen Item #23",
+    "description": "High-quality home & kitchen product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 16.68,
+    "originalPrice": 24.08,
+    "category": "Home & Kitchen",
+    "images": [
+      "https://images.unsplash.com/photo-1556911223-05f025849466?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.4,
+    "reviewCount": 4233,
+    "stock": 80,
+    "badge": null,
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-16T21:50:53.010Z"
+    }
+  },
+  {
+    "title": "Garden Item #24",
+    "description": "High-quality garden product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 187.02,
+    "originalPrice": null,
+    "category": "Garden",
+    "images": [
+      "https://images.unsplash.com/photo-1520333785240-a15e9d9ba77a?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.5,
+    "reviewCount": 4052,
+    "stock": 385,
+    "badge": "Sale",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-10T11:08:58.648Z"
+    }
+  },
+  {
+    "title": "Electronics Item #25",
+    "description": "High-quality electronics product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 340.26,
+    "originalPrice": 615.92,
+    "category": "Electronics",
+    "images": [
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.4,
+    "reviewCount": 3744,
+    "stock": 106,
+    "badge": "Best Seller",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-13T23:39:36.229Z"
+    }
+  },
+  {
+    "title": "Furniture Item #26",
+    "description": "High-quality furniture product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 17.22,
+    "originalPrice": 26.1,
+    "category": "Furniture",
+    "images": [
+      "https://images.unsplash.com/photo-1524758631624-051f92ede512?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.3,
+    "reviewCount": 4981,
+    "stock": 225,
+    "badge": null,
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-11T09:31:33.449Z"
+    }
+  },
+  {
+    "title": "Home & Kitchen Item #27",
+    "description": "High-quality home & kitchen product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 471.48,
+    "originalPrice": 877.88,
+    "category": "Home & Kitchen",
+    "images": [
+      "https://images.unsplash.com/photo-1520691512916-21a9890b5df6?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.9,
+    "reviewCount": 1717,
+    "stock": 204,
+    "badge": "New Arrival",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-10T18:49:31.126Z"
+    }
+  },
+  {
+    "title": "Beauty Item #28",
+    "description": "High-quality beauty product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 145.04,
+    "originalPrice": 251.49,
+    "category": "Beauty",
+    "images": [
+      "https://images.unsplash.com/photo-1512496011952-419b35976b91?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.8,
+    "reviewCount": 3794,
+    "stock": 344,
+    "badge": "New Arrival",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-15T06:37:33.135Z"
+    }
+  },
+  {
+    "title": "Grocery Item #29",
+    "description": "High-quality grocery product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 433.04,
+    "originalPrice": null,
+    "category": "Grocery",
+    "images": [
+      "https://images.unsplash.com/photo-1542838130-215431070664?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.3,
+    "reviewCount": 2871,
+    "stock": 438,
+    "badge": "New Arrival",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-13T15:47:57.276Z"
+    }
+  },
+  {
+    "title": "Furniture Item #30",
+    "description": "High-quality furniture product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 290.34,
+    "originalPrice": null,
+    "category": "Furniture",
+    "images": [
+      "https://images.unsplash.com/photo-1538688545167-3618176AA1B5?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.3,
+    "reviewCount": 2801,
+    "stock": 11,
+    "badge": null,
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-16T20:58:47.197Z"
+    }
+  },
+  {
+    "title": "Furniture Item #31",
+    "description": "High-quality furniture product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 79.5,
+    "originalPrice": 118.98,
+    "category": "Furniture",
+    "images": [
+      "https://images.unsplash.com/photo-1538688545167-3618176AA1B5?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.1,
+    "reviewCount": 1095,
+    "stock": 342,
+    "badge": "New Arrival",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-18T15:59:05.153Z"
+    }
+  },
+  {
+    "title": "Home & Kitchen Item #32",
+    "description": "High-quality home & kitchen product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 189.39,
+    "originalPrice": null,
+    "category": "Home & Kitchen",
+    "images": [
+      "https://images.unsplash.com/photo-1520691512916-21a9890b5df6?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.6,
+    "reviewCount": 3411,
+    "stock": 365,
+    "badge": "Sale",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-15T00:54:11.103Z"
+    }
+  },
+  {
+    "title": "Books Item #33",
+    "description": "High-quality books product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 325.72,
+    "originalPrice": 335.81,
+    "category": "Books",
+    "images": [
+      "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.4,
+    "reviewCount": 535,
+    "stock": 366,
+    "badge": "New Arrival",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-11T03:24:39.763Z"
+    }
+  },
+  {
+    "title": "Books Item #34",
+    "description": "High-quality books product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 270.99,
+    "originalPrice": null,
+    "category": "Books",
+    "images": [
+      "https://images.unsplash.com/photo-1589998059171-4122d2105193?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.6,
+    "reviewCount": 4072,
+    "stock": 170,
+    "badge": "Sale",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-19T11:01:01.660Z"
+    }
+  },
+  {
+    "title": "Home & Kitchen Item #35",
+    "description": "High-quality home & kitchen product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 379.6,
+    "originalPrice": null,
+    "category": "Home & Kitchen",
+    "images": [
+      "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.4,
+    "reviewCount": 2741,
+    "stock": 481,
+    "badge": "Sale",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-19T15:46:54.473Z"
+    }
+  },
+  {
+    "title": "Grocery Item #36",
+    "description": "High-quality grocery product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 147.04,
+    "originalPrice": null,
+    "category": "Grocery",
+    "images": [
+      "https://images.unsplash.com/photo-1542838130-215431070664?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.4,
+    "reviewCount": 379,
+    "stock": 59,
+    "badge": "Sale",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-14T03:11:59.165Z"
+    }
+  },
+  {
+    "title": "Beauty Item #37",
+    "description": "High-quality beauty product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 316.63,
+    "originalPrice": null,
+    "category": "Beauty",
+    "images": [
+      "https://images.unsplash.com/photo-1512496011952-419b35976b91?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.3,
+    "reviewCount": 3977,
+    "stock": 146,
+    "badge": "Sale",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-15T15:01:32.372Z"
+    }
+  },
+  {
+    "title": "Books Item #38",
+    "description": "High-quality books product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 356.25,
+    "originalPrice": 564.45,
+    "category": "Books",
+    "images": [
+      "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.6,
+    "reviewCount": 914,
+    "stock": 94,
+    "badge": null,
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-19T18:29:18.681Z"
+    }
+  },
+  {
+    "title": "Garden Item #39",
+    "description": "High-quality garden product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 460.79,
+    "originalPrice": null,
+    "category": "Garden",
+    "images": [
+      "https://images.unsplash.com/photo-1558905228-2b04f3747f57?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.7,
+    "reviewCount": 1937,
+    "stock": 219,
+    "badge": null,
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-20T03:30:39.746Z"
+    }
+  },
+  {
+    "title": "Sports & Fitness Item #40",
+    "description": "High-quality sports & fitness product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 71.13,
+    "originalPrice": null,
+    "category": "Sports & Fitness",
+    "images": [
+      "https://images.unsplash.com/photo-1517344443292-0b04764b8593?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.9,
+    "reviewCount": 1659,
+    "stock": 443,
+    "badge": "Sale",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-15T23:07:31.808Z"
+    }
+  },
+  {
+    "title": "Furniture Item #41",
+    "description": "High-quality furniture product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 242.93,
+    "originalPrice": 336.82,
+    "category": "Furniture",
+    "images": [
+      "https://images.unsplash.com/photo-1484101403023-5d39c32a208c?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.2,
+    "reviewCount": 4305,
+    "stock": 271,
+    "badge": "New Arrival",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-13T07:53:48.931Z"
+    }
+  },
+  {
+    "title": "Grocery Item #42",
+    "description": "High-quality grocery product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 360.91,
+    "originalPrice": 522.58,
+    "category": "Grocery",
+    "images": [
+      "https://images.unsplash.com/photo-1542838130-215431070664?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.3,
+    "reviewCount": 4954,
+    "stock": 334,
+    "badge": null,
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-16T04:38:29.175Z"
+    }
+  },
+  {
+    "title": "Clothing Item #43",
+    "description": "High-quality clothing product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 73.56,
+    "originalPrice": null,
+    "category": "Clothing",
+    "images": [
+      "https://images.unsplash.com/photo-1523381235312-3c4d5f460a5e?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.5,
+    "reviewCount": 2549,
+    "stock": 151,
+    "badge": "Top Rated",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-20T10:51:56.288Z"
+    }
+  },
+  {
+    "title": "Home & Kitchen Item #44",
+    "description": "High-quality home & kitchen product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 457.37,
+    "originalPrice": 562.56,
+    "category": "Home & Kitchen",
+    "images": [
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.7,
+    "reviewCount": 3764,
+    "stock": 190,
+    "badge": "Best Seller",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-10T19:42:23.216Z"
+    }
+  },
+  {
+    "title": "Sports & Fitness Item #45",
+    "description": "High-quality sports & fitness product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 347.66,
+    "originalPrice": null,
+    "category": "Sports & Fitness",
+    "images": [
+      "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.6,
+    "reviewCount": 3423,
+    "stock": 138,
+    "badge": "New Arrival",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-18T20:07:19.396Z"
+    }
+  },
+  {
+    "title": "Home & Kitchen Item #46",
+    "description": "High-quality home & kitchen product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 186.2,
+    "originalPrice": 283.23,
+    "category": "Home & Kitchen",
+    "images": [
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.4,
+    "reviewCount": 179,
+    "stock": 236,
+    "badge": "Best Seller",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-11T22:37:04.340Z"
+    }
+  },
+  {
+    "title": "Garden Item #47",
+    "description": "High-quality garden product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 467.53,
+    "originalPrice": null,
+    "category": "Garden",
+    "images": [
+      "https://images.unsplash.com/photo-1590004953392-5aba2e7df620?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.7,
+    "reviewCount": 961,
+    "stock": 260,
+    "badge": "Sale",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-09T18:04:50.985Z"
+    }
+  },
+  {
+    "title": "Home & Kitchen Item #48",
+    "description": "High-quality home & kitchen product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 421.07,
+    "originalPrice": 546.86,
+    "category": "Home & Kitchen",
+    "images": [
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.3,
+    "reviewCount": 1234,
+    "stock": 17,
+    "badge": "Sale",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-19T05:49:39.719Z"
+    }
+  },
+  {
+    "title": "Home & Kitchen Item #49",
+    "description": "High-quality home & kitchen product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 276.23,
+    "originalPrice": 404.26,
+    "category": "Home & Kitchen",
+    "images": [
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.9,
+    "reviewCount": 1665,
+    "stock": 424,
+    "badge": "Top Rated",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-14T18:06:29.284Z"
+    }
+  },
+  {
+    "title": "Electronics Item #50",
+    "description": "High-quality electronics product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 467.9,
+    "originalPrice": null,
+    "category": "Electronics",
+    "images": [
+      "https://images.unsplash.com/photo-1550009158-9fe3027720af?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.9,
+    "reviewCount": 4616,
+    "stock": 464,
+    "badge": "Best Seller",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-13T04:19:45.120Z"
+    }
+  },
+  {
+    "title": "Grocery Item #51",
+    "description": "High-quality grocery product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 214.73,
+    "originalPrice": null,
+    "category": "Grocery",
+    "images": [
+      "https://images.unsplash.com/photo-1542838130-215431070664?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.1,
+    "reviewCount": 942,
+    "stock": 145,
+    "badge": "Sale",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-14T04:33:13.001Z"
+    }
+  },
+  {
+    "title": "Grocery Item #52",
+    "description": "High-quality grocery product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 468.11,
+    "originalPrice": 564.32,
+    "category": "Grocery",
+    "images": [
+      "https://images.unsplash.com/photo-1516594798213-294082468971?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.7,
+    "reviewCount": 489,
+    "stock": 353,
+    "badge": "New Arrival",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-09T10:25:51.129Z"
+    }
+  },
+  {
+    "title": "Home & Kitchen Item #53",
+    "description": "High-quality home & kitchen product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 427.94,
+    "originalPrice": 463.2,
+    "category": "Home & Kitchen",
+    "images": [
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.9,
+    "reviewCount": 36,
+    "stock": 379,
+    "badge": null,
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-14T07:41:14.565Z"
+    }
+  },
+  {
+    "title": "Toys Item #54",
+    "description": "High-quality toys product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 221.79,
+    "originalPrice": null,
+    "category": "Toys",
+    "images": [
+      "https://images.unsplash.com/photo-1596460624682-10f763ad7c1a?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.5,
+    "reviewCount": 2370,
+    "stock": 183,
+    "badge": null,
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-14T18:42:45.021Z"
+    }
+  },
+  {
+    "title": "Garden Item #55",
+    "description": "High-quality garden product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 129.01,
+    "originalPrice": 233.22,
+    "category": "Garden",
+    "images": [
+      "https://images.unsplash.com/photo-1590004953392-5aba2e7df620?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.8,
+    "reviewCount": 1906,
+    "stock": 395,
+    "badge": "Top Rated",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-18T03:14:26.046Z"
+    }
+  },
+  {
+    "title": "Clothing Item #56",
+    "description": "High-quality clothing product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 203.49,
+    "originalPrice": null,
+    "category": "Clothing",
+    "images": [
+      "https://images.unsplash.com/photo-1523381235312-3c4d5f460a5e?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.8,
+    "reviewCount": 3790,
+    "stock": 53,
+    "badge": "Top Rated",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-17T01:52:00.621Z"
+    }
+  },
+  {
+    "title": "Toys Item #57",
+    "description": "High-quality toys product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 89.3,
+    "originalPrice": null,
+    "category": "Toys",
+    "images": [
+      "https://images.unsplash.com/photo-1515488764276-beab7607c1e6?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.6,
+    "reviewCount": 1924,
+    "stock": 485,
+    "badge": null,
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-09T19:59:37.689Z"
+    }
+  },
+  {
+    "title": "Electronics Item #58",
+    "description": "High-quality electronics product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 109.3,
+    "originalPrice": 197.25,
+    "category": "Electronics",
+    "images": [
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.6,
+    "reviewCount": 2354,
+    "stock": 443,
+    "badge": "New Arrival",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-17T08:32:18.159Z"
+    }
+  },
+  {
+    "title": "Clothing Item #59",
+    "description": "High-quality clothing product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 315.64,
+    "originalPrice": null,
+    "category": "Clothing",
+    "images": [
+      "https://images.unsplash.com/photo-1445205170230-01d03b830c60?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.8,
+    "reviewCount": 217,
+    "stock": 253,
+    "badge": "New Arrival",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-09T10:35:49.070Z"
+    }
+  },
+  {
+    "title": "Beauty Item #60",
+    "description": "High-quality beauty product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 326.63,
+    "originalPrice": null,
+    "category": "Beauty",
+    "images": [
+      "https://images.unsplash.com/photo-1570172233541-536a0d07e33e?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3,
+    "reviewCount": 1534,
+    "stock": 115,
+    "badge": "Sale",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-11T17:57:32.428Z"
+    }
+  },
+  {
+    "title": "Electronics Item #61",
+    "description": "High-quality electronics product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 352.54,
+    "originalPrice": null,
+    "category": "Electronics",
+    "images": [
+      "https://images.unsplash.com/photo-1550009158-9fe3027720af?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.1,
+    "reviewCount": 4303,
+    "stock": 281,
+    "badge": "Top Rated",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-09T06:12:57.651Z"
+    }
+  },
+  {
+    "title": "Furniture Item #62",
+    "description": "High-quality furniture product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 48.55,
+    "originalPrice": null,
+    "category": "Furniture",
+    "images": [
+      "https://images.unsplash.com/photo-1484101403023-5d39c32a208c?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.9,
+    "reviewCount": 1874,
+    "stock": 238,
+    "badge": "Best Seller",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-17T19:37:28.288Z"
+    }
+  },
+  {
+    "title": "Sports & Fitness Item #63",
+    "description": "High-quality sports & fitness product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 206.94,
+    "originalPrice": null,
+    "category": "Sports & Fitness",
+    "images": [
+      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.7,
+    "reviewCount": 566,
+    "stock": 21,
+    "badge": "Top Rated",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-20T01:55:00.342Z"
+    }
+  },
+  {
+    "title": "Garden Item #64",
+    "description": "High-quality garden product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 176.57,
+    "originalPrice": null,
+    "category": "Garden",
+    "images": [
+      "https://images.unsplash.com/photo-1590004953392-5aba2e7df620?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.3,
+    "reviewCount": 4017,
+    "stock": 100,
+    "badge": null,
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-17T06:20:06.822Z"
+    }
+  },
+  {
+    "title": "Home & Kitchen Item #65",
+    "description": "High-quality home & kitchen product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 354.33,
+    "originalPrice": 456.28,
+    "category": "Home & Kitchen",
+    "images": [
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.3,
+    "reviewCount": 527,
+    "stock": 224,
+    "badge": "Top Rated",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-17T08:33:58.972Z"
+    }
+  },
+  {
+    "title": "Home & Kitchen Item #66",
+    "description": "High-quality home & kitchen product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 137.29,
+    "originalPrice": 261.51,
+    "category": "Home & Kitchen",
+    "images": [
+      "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.1,
+    "reviewCount": 1380,
+    "stock": 244,
+    "badge": "Best Seller",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-10T07:18:27.278Z"
+    }
+  },
+  {
+    "title": "Home & Kitchen Item #67",
+    "description": "High-quality home & kitchen product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 145.47,
+    "originalPrice": 278.7,
+    "category": "Home & Kitchen",
+    "images": [
+      "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.4,
+    "reviewCount": 4214,
+    "stock": 15,
+    "badge": "Top Rated",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-17T17:21:49.371Z"
+    }
+  },
+  {
+    "title": "Toys Item #68",
+    "description": "High-quality toys product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 181.75,
+    "originalPrice": null,
+    "category": "Toys",
+    "images": [
+      "https://images.unsplash.com/photo-1515488764276-beab7607c1e6?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.6,
+    "reviewCount": 3007,
+    "stock": 74,
+    "badge": null,
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-11T13:38:08.969Z"
+    }
+  },
+  {
+    "title": "Electronics Item #69",
+    "description": "High-quality electronics product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 499.67,
+    "originalPrice": null,
+    "category": "Electronics",
+    "images": [
+      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.2,
+    "reviewCount": 129,
+    "stock": 289,
+    "badge": "Top Rated",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-10T10:10:03.432Z"
+    }
+  },
+  {
+    "title": "Garden Item #70",
+    "description": "High-quality garden product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 221.34,
+    "originalPrice": 421.2,
+    "category": "Garden",
+    "images": [
+      "https://images.unsplash.com/photo-1558905228-2b04f3747f57?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.6,
+    "reviewCount": 3955,
+    "stock": 178,
+    "badge": "Top Rated",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-19T18:29:59.990Z"
+    }
+  },
+  {
+    "title": "Home & Kitchen Item #71",
+    "description": "High-quality home & kitchen product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 153.73,
+    "originalPrice": 226.03,
+    "category": "Home & Kitchen",
+    "images": [
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.9,
+    "reviewCount": 702,
+    "stock": 83,
+    "badge": "Sale",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-15T02:29:59.252Z"
+    }
+  },
+  {
+    "title": "Books Item #72",
+    "description": "High-quality books product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 149.88,
+    "originalPrice": null,
+    "category": "Books",
+    "images": [
+      "https://images.unsplash.com/photo-1544947950-fa07a98d2ad7?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.9,
+    "reviewCount": 4923,
+    "stock": 321,
+    "badge": "New Arrival",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-13T07:19:04.314Z"
+    }
+  },
+  {
+    "title": "Toys Item #73",
+    "description": "High-quality toys product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 486.84,
+    "originalPrice": null,
+    "category": "Toys",
+    "images": [
+      "https://images.unsplash.com/photo-1515488764276-beab7607c1e6?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.2,
+    "reviewCount": 1411,
+    "stock": 215,
+    "badge": null,
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-13T01:59:18.464Z"
+    }
+  },
+  {
+    "title": "Beauty Item #74",
+    "description": "High-quality beauty product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 348.32,
+    "originalPrice": null,
+    "category": "Beauty",
+    "images": [
+      "https://images.unsplash.com/photo-1570172233541-536a0d07e33e?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.5,
+    "reviewCount": 459,
+    "stock": 372,
+    "badge": null,
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-14T07:53:47.628Z"
+    }
+  },
+  {
+    "title": "Home & Kitchen Item #75",
+    "description": "High-quality home & kitchen product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 249.06,
+    "originalPrice": 286.65,
+    "category": "Home & Kitchen",
+    "images": [
+      "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.8,
+    "reviewCount": 4473,
+    "stock": 78,
+    "badge": "Top Rated",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-13T22:06:02.993Z"
+    }
+  },
+  {
+    "title": "Home & Kitchen Item #76",
+    "description": "High-quality home & kitchen product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 114.27,
+    "originalPrice": 123.67,
+    "category": "Home & Kitchen",
+    "images": [
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.5,
+    "reviewCount": 751,
+    "stock": 292,
+    "badge": "Top Rated",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-09T15:55:45.243Z"
+    }
+  },
+  {
+    "title": "Garden Item #77",
+    "description": "High-quality garden product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 59.51,
+    "originalPrice": null,
+    "category": "Garden",
+    "images": [
+      "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.1,
+    "reviewCount": 363,
+    "stock": 9,
+    "badge": null,
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-19T00:59:56.250Z"
+    }
+  },
+  {
+    "title": "Garden Item #78",
+    "description": "High-quality garden product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 177.35,
+    "originalPrice": null,
+    "category": "Garden",
+    "images": [
+      "https://images.unsplash.com/photo-1592150642244-2512cd161215?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.4,
+    "reviewCount": 134,
+    "stock": 461,
+    "badge": "New Arrival",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-17T19:04:05.539Z"
+    }
+  },
+  {
+    "title": "Electronics Item #79",
+    "description": "High-quality electronics product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 190.86,
+    "originalPrice": 351.63,
+    "category": "Electronics",
+    "images": [
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.4,
+    "reviewCount": 1535,
+    "stock": 457,
+    "badge": "Sale",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-09T13:45:12.709Z"
+    }
+  },
+  {
+    "title": "Garden Item #80",
+    "description": "High-quality garden product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 239.32,
+    "originalPrice": null,
+    "category": "Garden",
+    "images": [
+      "https://images.unsplash.com/photo-1590004953392-5aba2e7df620?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.6,
+    "reviewCount": 1597,
+    "stock": 12,
+    "badge": "Sale",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-18T17:29:51.139Z"
+    }
+  },
+  {
+    "title": "Toys Item #81",
+    "description": "High-quality toys product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 415,
+    "originalPrice": 767.97,
+    "category": "Toys",
+    "images": [
+      "https://images.unsplash.com/photo-1531735508821-487431e7c541?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.7,
+    "reviewCount": 1577,
+    "stock": 445,
+    "badge": "Best Seller",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-19T16:35:21.003Z"
+    }
+  },
+  {
+    "title": "Home & Kitchen Item #82",
+    "description": "High-quality home & kitchen product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 493.87,
+    "originalPrice": 893.1,
+    "category": "Home & Kitchen",
+    "images": [
+      "https://images.unsplash.com/photo-1556911223-05f025849466?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 5,
+    "reviewCount": 4609,
+    "stock": 454,
+    "badge": "Top Rated",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-16T08:14:37.812Z"
+    }
+  },
+  {
+    "title": "Furniture Item #83",
+    "description": "High-quality furniture product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 424.35,
+    "originalPrice": null,
+    "category": "Furniture",
+    "images": [
+      "https://images.unsplash.com/photo-1524758631624-051f92ede512?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.7,
+    "reviewCount": 3433,
+    "stock": 45,
+    "badge": null,
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-13T20:49:56.470Z"
+    }
+  },
+  {
+    "title": "Furniture Item #84",
+    "description": "High-quality furniture product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 449.21,
+    "originalPrice": null,
+    "category": "Furniture",
+    "images": [
+      "https://images.unsplash.com/photo-1618220179471-a63b068a3c8e?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.7,
+    "reviewCount": 3510,
+    "stock": 93,
+    "badge": "Sale",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-09T19:56:09.071Z"
+    }
+  },
+  {
+    "title": "Toys Item #85",
+    "description": "High-quality toys product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 282.04,
+    "originalPrice": null,
+    "category": "Toys",
+    "images": [
+      "https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3,
+    "reviewCount": 20,
+    "stock": 61,
+    "badge": "Top Rated",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-18T00:58:20.619Z"
+    }
+  },
+  {
+    "title": "Home & Kitchen Item #86",
+    "description": "High-quality home & kitchen product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 153.79,
+    "originalPrice": 252.19,
+    "category": "Home & Kitchen",
+    "images": [
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.2,
+    "reviewCount": 3594,
+    "stock": 303,
+    "badge": "Sale",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-09T06:35:58.551Z"
+    }
+  },
+  {
+    "title": "Clothing Item #87",
+    "description": "High-quality clothing product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 227.08,
+    "originalPrice": 311.16,
+    "category": "Clothing",
+    "images": [
+      "https://images.unsplash.com/photo-1525507119028-2426098a8a61?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3,
+    "reviewCount": 1632,
+    "stock": 14,
+    "badge": null,
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-09T05:13:50.105Z"
+    }
+  },
+  {
+    "title": "Furniture Item #88",
+    "description": "High-quality furniture product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 187.09,
+    "originalPrice": 332.16,
+    "category": "Furniture",
+    "images": [
+      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.2,
+    "reviewCount": 3082,
+    "stock": 469,
+    "badge": "Best Seller",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-15T04:33:03.238Z"
+    }
+  },
+  {
+    "title": "Beauty Item #89",
+    "description": "High-quality beauty product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 15.2,
+    "originalPrice": 17.51,
+    "category": "Beauty",
+    "images": [
+      "https://images.unsplash.com/photo-1512496011952-419b35976b91?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.6,
+    "reviewCount": 3286,
+    "stock": 123,
+    "badge": "Sale",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-12T23:04:57.888Z"
+    }
+  },
+  {
+    "title": "Furniture Item #90",
+    "description": "High-quality furniture product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 369.08,
+    "originalPrice": null,
+    "category": "Furniture",
+    "images": [
+      "https://images.unsplash.com/photo-1618220179471-a63b068a3c8e?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.3,
+    "reviewCount": 3464,
+    "stock": 114,
+    "badge": "New Arrival",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-13T15:08:31.312Z"
+    }
+  },
+  {
+    "title": "Furniture Item #91",
+    "description": "High-quality furniture product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 97.75,
+    "originalPrice": null,
+    "category": "Furniture",
+    "images": [
+      "https://images.unsplash.com/photo-1538688545167-3618176AA1B5?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.4,
+    "reviewCount": 4149,
+    "stock": 146,
+    "badge": "Best Seller",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-12T00:03:19.970Z"
+    }
+  },
+  {
+    "title": "Furniture Item #92",
+    "description": "High-quality furniture product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 158.5,
+    "originalPrice": 160.3,
+    "category": "Furniture",
+    "images": [
+      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.6,
+    "reviewCount": 4933,
+    "stock": 362,
+    "badge": "Top Rated",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-14T05:50:55.764Z"
+    }
+  },
+  {
+    "title": "Toys Item #93",
+    "description": "High-quality toys product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 471.24,
+    "originalPrice": null,
+    "category": "Toys",
+    "images": [
+      "https://images.unsplash.com/photo-1566576721346-d4a3b4eaad5b?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.3,
+    "reviewCount": 555,
+    "stock": 340,
+    "badge": "Top Rated",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-19T08:31:53.087Z"
+    }
+  },
+  {
+    "title": "Clothing Item #94",
+    "description": "High-quality clothing product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 94.54,
+    "originalPrice": 120.24,
+    "category": "Clothing",
+    "images": [
+      "https://images.unsplash.com/photo-1551488831-0005d595b4b8?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.9,
+    "reviewCount": 1467,
+    "stock": 91,
+    "badge": "Best Seller",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-17T11:49:12.353Z"
+    }
+  },
+  {
+    "title": "Sports & Fitness Item #95",
+    "description": "High-quality sports & fitness product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 367.45,
+    "originalPrice": null,
+    "category": "Sports & Fitness",
+    "images": [
+      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.7,
+    "reviewCount": 1885,
+    "stock": 224,
+    "badge": null,
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-15T20:31:38.334Z"
+    }
+  },
+  {
+    "title": "Grocery Item #96",
+    "description": "High-quality grocery product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 307.36,
+    "originalPrice": 415.91,
+    "category": "Grocery",
+    "images": [
+      "https://images.unsplash.com/photo-1506484334460-159b9a39775b?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.8,
+    "reviewCount": 2479,
+    "stock": 242,
+    "badge": null,
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-17T08:08:09.591Z"
+    }
+  },
+  {
+    "title": "Sports & Fitness Item #97",
+    "description": "High-quality sports & fitness product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 391.31,
+    "originalPrice": null,
+    "category": "Sports & Fitness",
+    "images": [
+      "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.1,
+    "reviewCount": 4331,
+    "stock": 231,
+    "badge": null,
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-13T23:44:23.508Z"
+    }
+  },
+  {
+    "title": "Clothing Item #98",
+    "description": "High-quality clothing product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 97.43,
+    "originalPrice": 129.9,
+    "category": "Clothing",
+    "images": [
+      "https://images.unsplash.com/photo-1551488831-0005d595b4b8?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.5,
+    "reviewCount": 13,
+    "stock": 64,
+    "badge": "Sale",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-09T21:06:43.816Z"
+    }
+  },
+  {
+    "title": "Books Item #99",
+    "description": "High-quality books product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 444.64,
+    "originalPrice": null,
+    "category": "Books",
+    "images": [
+      "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.6,
+    "reviewCount": 4658,
+    "stock": 190,
+    "badge": "New Arrival",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-18T14:33:49.775Z"
+    }
+  },
+  {
+    "title": "Electronics Item #100",
+    "description": "High-quality electronics product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 397.04,
+    "originalPrice": 754.75,
+    "category": "Electronics",
+    "images": [
+      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.4,
+    "reviewCount": 3861,
+    "stock": 397,
+    "badge": "New Arrival",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-17T12:23:05.812Z"
+    }
+  },
+  {
+    "title": "Electronics Item #101",
+    "description": "High-quality electronics product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 326.94,
+    "originalPrice": null,
+    "category": "Electronics",
+    "images": [
+      "https://images.unsplash.com/photo-1526738549149-8e07eca84d0d?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.7,
+    "reviewCount": 681,
+    "stock": 392,
+    "badge": "Top Rated",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-10T21:22:09.464Z"
+    }
+  },
+  {
+    "title": "Grocery Item #102",
+    "description": "High-quality grocery product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 238.58,
+    "originalPrice": null,
+    "category": "Grocery",
+    "images": [
+      "https://images.unsplash.com/photo-1506484334460-159b9a39775b?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.9,
+    "reviewCount": 2767,
+    "stock": 8,
+    "badge": "New Arrival",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-17T05:22:24.498Z"
+    }
+  },
+  {
+    "title": "Garden Item #103",
+    "description": "High-quality garden product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 197.23,
+    "originalPrice": null,
+    "category": "Garden",
+    "images": [
+      "https://images.unsplash.com/photo-1558905228-2b04f3747f57?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.3,
+    "reviewCount": 2616,
+    "stock": 484,
+    "badge": "New Arrival",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-18T10:51:51.519Z"
+    }
+  },
+  {
+    "title": "Toys Item #104",
+    "description": "High-quality toys product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 77.28,
+    "originalPrice": 143.05,
+    "category": "Toys",
+    "images": [
+      "https://images.unsplash.com/photo-1531735508821-487431e7c541?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.8,
+    "reviewCount": 3510,
+    "stock": 493,
+    "badge": "Top Rated",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-12T12:51:19.056Z"
+    }
+  },
+  {
+    "title": "Beauty Item #105",
+    "description": "High-quality beauty product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 31.32,
+    "originalPrice": 46.89,
+    "category": "Beauty",
+    "images": [
+      "https://images.unsplash.com/photo-1522335789203-cabd15a3b2b6?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.3,
+    "reviewCount": 122,
+    "stock": 445,
+    "badge": "New Arrival",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-10T12:46:40.278Z"
+    }
+  },
+  {
+    "title": "Furniture Item #106",
+    "description": "High-quality furniture product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 192.34,
+    "originalPrice": 308.27,
+    "category": "Furniture",
+    "images": [
+      "https://images.unsplash.com/photo-1524758631624-051f92ede512?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.6,
+    "reviewCount": 3503,
+    "stock": 58,
+    "badge": "Top Rated",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-12T01:04:52.948Z"
+    }
+  },
+  {
+    "title": "Garden Item #107",
+    "description": "High-quality garden product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 12.6,
+    "originalPrice": null,
+    "category": "Garden",
+    "images": [
+      "https://images.unsplash.com/photo-1590004953392-5aba2e7df620?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.4,
+    "reviewCount": 2894,
+    "stock": 325,
+    "badge": "Sale",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-16T16:00:56.707Z"
+    }
+  },
+  {
+    "title": "Electronics Item #108",
+    "description": "High-quality electronics product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 229.63,
+    "originalPrice": 295.48,
+    "category": "Electronics",
+    "images": [
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.5,
+    "reviewCount": 2085,
+    "stock": 185,
+    "badge": "Top Rated",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-10T14:31:15.356Z"
+    }
+  },
+  {
+    "title": "Grocery Item #109",
+    "description": "High-quality grocery product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 461.42,
+    "originalPrice": 770.39,
+    "category": "Grocery",
+    "images": [
+      "https://images.unsplash.com/photo-1542838130-215431070664?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.6,
+    "reviewCount": 2644,
+    "stock": 242,
+    "badge": "New Arrival",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-09T10:56:58.105Z"
+    }
+  },
+  {
+    "title": "Toys Item #110",
+    "description": "High-quality toys product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 69.92,
+    "originalPrice": null,
+    "category": "Toys",
+    "images": [
+      "https://images.unsplash.com/photo-1515488764276-beab7607c1e6?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.1,
+    "reviewCount": 1274,
+    "stock": 468,
+    "badge": "New Arrival",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-16T16:39:16.665Z"
+    }
+  },
+  {
+    "title": "Books Item #111",
+    "description": "High-quality books product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 173.95,
+    "originalPrice": 295.17,
+    "category": "Books",
+    "images": [
+      "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 4.5,
+    "reviewCount": 2674,
+    "stock": 93,
+    "badge": null,
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-16T06:43:20.566Z"
+    }
+  },
+  {
+    "title": "Sports & Fitness Item #112",
+    "description": "High-quality sports & fitness product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 280.05,
+    "originalPrice": null,
+    "category": "Sports & Fitness",
+    "images": [
+      "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.4,
+    "reviewCount": 1762,
+    "stock": 240,
+    "badge": "New Arrival",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-10T07:11:17.300Z"
+    }
+  },
+  {
+    "title": "Garden Item #113",
+    "description": "High-quality garden product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 251.82,
+    "originalPrice": 433.26,
+    "category": "Garden",
+    "images": [
+      "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.8,
+    "reviewCount": 4686,
+    "stock": 337,
+    "badge": null,
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-17T21:36:06.144Z"
+    }
+  },
+  {
+    "title": "Books Item #114",
+    "description": "High-quality books product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 201.53,
+    "originalPrice": null,
+    "category": "Books",
+    "images": [
+      "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.3,
+    "reviewCount": 680,
+    "stock": 364,
+    "badge": "Best Seller",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-20T02:54:15.180Z"
+    }
+  },
+  {
+    "title": "Garden Item #115",
+    "description": "High-quality garden product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 442.68,
+    "originalPrice": null,
+    "category": "Garden",
+    "images": [
+      "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.2,
+    "reviewCount": 1700,
+    "stock": 0,
+    "badge": "New Arrival",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-17T00:59:36.775Z"
+    }
+  },
+  {
+    "title": "Beauty Item #116",
+    "description": "High-quality beauty product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 29.04,
+    "originalPrice": null,
+    "category": "Beauty",
+    "images": [
+      "https://images.unsplash.com/photo-1563177429-30d844119a58?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.6,
+    "reviewCount": 724,
+    "stock": 351,
+    "badge": "Best Seller",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-09T20:44:29.201Z"
+    }
+  },
+  {
+    "title": "Grocery Item #117",
+    "description": "High-quality grocery product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 30.76,
+    "originalPrice": null,
+    "category": "Grocery",
+    "images": [
+      "https://images.unsplash.com/photo-1506484334460-a29f8fcc6ec2?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.4,
+    "reviewCount": 3879,
+    "stock": 296,
+    "badge": "Best Seller",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-18T09:39:37.172Z"
+    }
+  },
+  {
+    "title": "Beauty Item #118",
+    "description": "High-quality beauty product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 76.99,
+    "originalPrice": null,
+    "category": "Beauty",
+    "images": [
+      "https://images.unsplash.com/photo-1563177429-30d844119a58?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 5,
+    "reviewCount": 3024,
+    "stock": 420,
+    "badge": "Top Rated",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-19T04:53:51.638Z"
+    }
+  },
+  {
+    "title": "Beauty Item #119",
+    "description": "High-quality beauty product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 264.46,
+    "originalPrice": null,
+    "category": "Beauty",
+    "images": [
+      "https://images.unsplash.com/photo-1512496011952-419b35976b91?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.8,
+    "reviewCount": 3542,
+    "stock": 366,
+    "badge": "Top Rated",
+    "seller": {
+      "$oid": "6998597ba749f8ea4de8c9bc"
+    },
+    "createdAt": {
+      "$date": "2026-02-18T14:42:33.878Z"
+    }
+  },
+  {
+    "title": "Beauty Item #120",
+    "description": "High-quality beauty product. Durable, reliable and perfect for your daily needs. Features advanced technology and premium materials.",
+    "price": 452.37,
+    "originalPrice": 783.87,
+    "category": "Beauty",
+    "images": [
+      "https://images.unsplash.com/photo-1563177429-30d844119a58?auto=format&fit=crop&q=80&w=500"
+    ],
+    "rating": 3.5,
+    "reviewCount": 124,
+    "stock": 16,
+    "badge": "New Arrival",
+    "seller": {
+      "$oid": "6997657bc4bf33d3288c03dc"
+    },
+    "createdAt": {
+      "$date": "2026-02-11T12:00:36.591Z"
+    }
+  }
+]

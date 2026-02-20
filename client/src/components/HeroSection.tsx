@@ -15,7 +15,7 @@ const HeroSection = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#E3E6E6]" />
         
-        <div className="relative h-full container mx-auto px-4 lg:px-8 flex items-center pb-24 md:pb-32">
+        <div className="relative h-full container mx-auto px-4 lg:px-8 flex items-center pb-32 md:pb-40 lg:pb-56">
           <div className="max-w-lg space-y-6">
             <p className="text-foreground/80 text-sm font-medium tracking-widest uppercase">
               New Collection

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import HeroSection from "@/components/HeroSection";
 import ProductCard from "@/components/ProductCard";
 import Navbar from "@/components/Navbar";
@@ -10,26 +10,77 @@ import { ArrowRight, Loader2 } from "lucide-react";
 const Index = () => {
   const [productsList, setProductsList] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/products`);
-        const data = await response.json();
-        if (response.ok) {
-          setProductsList(data);
-        }
-      } catch (error) {
-        console.error("Failed to fetch products:", error);
-      } finally {
-        setLoading(false);
+  const lastProductRef = useCallback((node: HTMLDivElement) => {
+    if (loading || loadingMore) return;
+    if (observerRef.current) observerRef.current.disconnect();
+    observerRef.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && hasMore) {
+        setPage(prevPage => prevPage + 1);
       }
-    };
+    });
+    if (node) observerRef.current.observe(node);
+  }, [loading, loadingMore, hasMore]);
 
-    fetchProducts();
+  const [recommendedProducts, setRecommendedProducts] = useState<Product[]>([]);
+  const [loadingRecommended, setLoadingRecommended] = useState(false);
+
+  const fetchRecommended = useCallback(async () => {
+    const interestsJson = localStorage.getItem("user_interests");
+    if (!interestsJson) return;
+
+    try {
+      const interests: string[] = JSON.parse(interestsJson);
+      if (interests.length === 0) return;
+
+      setLoadingRecommended(true);
+      const categories = interests.join(",");
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/products?category=${categories}&limit=4`);
+      const data = await response.json();
+      if (response.ok) {
+        setRecommendedProducts(data.products || []);
+      }
+    } catch (error) {
+      console.error("Failed to fetch recommended products:", error);
+    } finally {
+      setLoadingRecommended(false);
+    }
   }, []);
 
-  const featured = productsList.slice(0, 4);
+  const fetchProducts = useCallback(async (pageNum: number) => {
+    if (pageNum === 1) setLoading(true);
+    else setLoadingMore(true);
+    
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/products?page=${pageNum}&limit=8`);
+      const data = await response.json();
+      if (response.ok) {
+        if (pageNum === 1) {
+          setProductsList(data.products || []);
+        } else {
+          setProductsList(prev => [...prev, ...(data.products || [])]);
+        }
+        setHasMore(data.hasMore);
+      }
+    } catch (error) {
+      console.error("Failed to fetch products:", error);
+    } finally {
+      setLoading(false);
+      setLoadingMore(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchProducts(page);
+  }, [page, fetchProducts]);
+
+  useEffect(() => {
+    fetchRecommended();
+  }, [fetchRecommended]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -38,7 +89,31 @@ const Index = () => {
 
       <HeroSection />
 
-      {/* Featured Products */}
+      {/* Recommended for You Section */}
+      {recommendedProducts.length > 0 && (
+        <section className="container mx-auto px-4 lg:px-8 py-12 border-b border-border">
+          <div className="flex items-end justify-between mb-8">
+            <div>
+              <h2 className="font-display text-2xl md:text-3xl font-semibold text-foreground">Recommended for You</h2>
+              <p className="text-muted-foreground text-sm mt-1">Based on your recent searches</p>
+            </div>
+            <Link
+              to="/products"
+              className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+            >
+              Explore More
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8">
+            {recommendedProducts.map((product, i) => (
+              <ProductCard key={`recommended-${product._id}`} product={product} index={i} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Products Grid with Infinite Scroll */}
       <section className="container mx-auto px-4 lg:px-8 py-16">
         <div className="flex items-end justify-between mb-8">
           <div>
@@ -58,11 +133,33 @@ const Index = () => {
             <Loader2 className="animate-spin text-primary" size={32} />
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8">
-            {featured.map((product, i) => (
-              <ProductCard key={product._id} product={product} index={i} />
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8">
+              {productsList.map((product, i) => {
+                if (productsList.length === i + 1) {
+                  return (
+                    <div ref={lastProductRef} key={product._id}>
+                      <ProductCard product={product} index={i} />
+                    </div>
+                  );
+                } else {
+                  return <ProductCard key={product._id} product={product} index={i} />;
+                }
+              })}
+            </div>
+
+            {loadingMore && (
+              <div className="flex justify-center py-12">
+                <Loader2 className="animate-spin text-primary" size={32} />
+              </div>
+            )}
+            
+            {!hasMore && productsList.length > 0 && (
+              <p className="text-center text-muted-foreground text-sm mt-12">
+                You've seen all our current picks.
+              </p>
+            )}
+          </>
         )}
 
         <Link

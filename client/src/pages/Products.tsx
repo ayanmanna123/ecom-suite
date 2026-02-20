@@ -34,7 +34,7 @@ const Products = () => {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/products?${params.toString()}`);
       const data = await response.json();
       if (response.ok) {
-        setProductsList(data);
+        setProductsList(data.products || []);
       }
     } catch (error) {
       console.error("Failed to fetch products:", error);
@@ -51,45 +51,73 @@ const Products = () => {
     return () => clearTimeout(timer);
   }, [fetchProducts]);
 
-  // Sync URL params to state (on external change)
+  // Track user interests in localStorage
+  const trackInterest = useCallback((category: string) => {
+    if (!category || category === "All") return;
+
+    try {
+      const interestsJson = localStorage.getItem("user_interests");
+      let interests: string[] = interestsJson ? JSON.parse(interestsJson) : [];
+      
+      // Remove if already exists to move it to the front (highest priority)
+      interests = interests.filter(i => i !== category);
+      
+      // Add to the front
+      interests.unshift(category);
+      
+      // Keep only top 5 interests
+      interests = interests.slice(0, 5);
+      
+      localStorage.setItem("user_interests", JSON.stringify(interests));
+    } catch (error) {
+      console.error("Failed to track interest:", error);
+    }
+  }, []);
+
+  // Sync URL params to State (Immediate)
   useEffect(() => {
-    setSelectedCategory(categoryParam);
-    setSearchQuery(searchParam);
-    setSortBy(sortParam);
-  }, [categoryParam, searchParam, sortParam]);
+    if (categoryParam !== selectedCategory) {
+      setSelectedCategory(categoryParam);
+      trackInterest(categoryParam);
+    }
+    if (searchParam !== searchQuery) setSearchQuery(searchParam);
+    if (sortParam !== sortBy) setSortBy(sortParam);
+  }, [categoryParam, searchParam, sortParam, selectedCategory, trackInterest]);
 
-  // Sync state to URL (on internal change)
+  // Sync State to URL (Debounced to avoid jitter)
   useEffect(() => {
-    const params = new URLSearchParams(searchParams);
-    
-    // Only update if something actually changed to avoid infinite loops
-    let changed = false;
-    
-    if (selectedCategory === "All") {
-      if (params.has("category")) { params.delete("category"); changed = true; }
-    } else if (params.get("category") !== selectedCategory) {
-      params.set("category", selectedCategory);
-      changed = true;
-    }
+    const handler = setTimeout(() => {
+      const params = new URLSearchParams(searchParams);
+      let changed = false;
 
-    if (!searchQuery) {
-      if (params.has("search")) { params.delete("search"); changed = true; }
-    } else if (params.get("search") !== searchQuery) {
-      params.set("search", searchQuery);
-      changed = true;
-    }
+      if (selectedCategory === "All") {
+        if (params.has("category")) { params.delete("category"); changed = true; }
+      } else if (params.get("category") !== selectedCategory) {
+        params.set("category", selectedCategory);
+        changed = true;
+      }
 
-    if (sortBy === "featured") {
-      if (params.has("sort")) { params.delete("sort"); changed = true; }
-    } else if (params.get("sort") !== sortBy) {
-      params.set("sort", sortBy);
-      changed = true;
-    }
+      if (!searchQuery) {
+        if (params.has("search")) { params.delete("search"); changed = true; }
+      } else if (params.get("search") !== searchQuery) {
+        params.set("search", searchQuery);
+        changed = true;
+      }
 
-    if (changed) {
-      setSearchParams(params, { replace: true });
-    }
-  }, [selectedCategory, searchQuery, sortBy, setSearchParams, searchParams]);
+      if (sortBy === "featured") {
+        if (params.has("sort")) { params.delete("sort"); changed = true; }
+      } else if (params.get("sort") !== sortBy) {
+        params.set("sort", sortBy);
+        changed = true;
+      }
+
+      if (changed) {
+        setSearchParams(params, { replace: true });
+      }
+    }, 500);
+
+    return () => clearTimeout(handler);
+  }, [selectedCategory, searchQuery, sortBy, setSearchParams]);
 
   const handleCategoryChange = (cat: string) => {
     setSelectedCategory(cat);
