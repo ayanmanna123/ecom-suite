@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Search, ShoppingBag, Heart, Menu, X, User, Loader2 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
@@ -8,12 +8,23 @@ const Navbar = () => {
   const { totalItems, setIsOpen } = useCart();
   const { user } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const searchRef = useRef<HTMLDivElement>(null);
+  
+  // Get search from URL
+  const searchParams = new URLSearchParams(location.search);
+  const searchFromUrl = searchParams.get("search") || "";
+  
+  const [searchQuery, setSearchQuery] = useState(searchFromUrl);
   const [suggestions, setSuggestions] = useState<{ title: string; category: string }[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
-  const searchRef = useRef<HTMLDivElement>(null);
+
+  // Sync state with URL when it changes
+  useEffect(() => {
+    setSearchQuery(searchFromUrl);
+  }, [searchFromUrl]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

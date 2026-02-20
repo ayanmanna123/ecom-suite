@@ -51,45 +51,47 @@ const Products = () => {
     return () => clearTimeout(timer);
   }, [fetchProducts]);
 
-  // Sync URL params to state (on external change)
+  // Sync URL params to State (Immediate)
   useEffect(() => {
-    setSelectedCategory(categoryParam);
-    setSearchQuery(searchParam);
-    setSortBy(sortParam);
+    if (categoryParam !== selectedCategory) setSelectedCategory(categoryParam);
+    if (searchParam !== searchQuery) setSearchQuery(searchParam);
+    if (sortParam !== sortBy) setSortBy(sortParam);
   }, [categoryParam, searchParam, sortParam]);
 
-  // Sync state to URL (on internal change)
+  // Sync State to URL (Debounced to avoid jitter)
   useEffect(() => {
-    const params = new URLSearchParams(searchParams);
-    
-    // Only update if something actually changed to avoid infinite loops
-    let changed = false;
-    
-    if (selectedCategory === "All") {
-      if (params.has("category")) { params.delete("category"); changed = true; }
-    } else if (params.get("category") !== selectedCategory) {
-      params.set("category", selectedCategory);
-      changed = true;
-    }
+    const handler = setTimeout(() => {
+      const params = new URLSearchParams(searchParams);
+      let changed = false;
 
-    if (!searchQuery) {
-      if (params.has("search")) { params.delete("search"); changed = true; }
-    } else if (params.get("search") !== searchQuery) {
-      params.set("search", searchQuery);
-      changed = true;
-    }
+      if (selectedCategory === "All") {
+        if (params.has("category")) { params.delete("category"); changed = true; }
+      } else if (params.get("category") !== selectedCategory) {
+        params.set("category", selectedCategory);
+        changed = true;
+      }
 
-    if (sortBy === "featured") {
-      if (params.has("sort")) { params.delete("sort"); changed = true; }
-    } else if (params.get("sort") !== sortBy) {
-      params.set("sort", sortBy);
-      changed = true;
-    }
+      if (!searchQuery) {
+        if (params.has("search")) { params.delete("search"); changed = true; }
+      } else if (params.get("search") !== searchQuery) {
+        params.set("search", searchQuery);
+        changed = true;
+      }
 
-    if (changed) {
-      setSearchParams(params, { replace: true });
-    }
-  }, [selectedCategory, searchQuery, sortBy, setSearchParams, searchParams]);
+      if (sortBy === "featured") {
+        if (params.has("sort")) { params.delete("sort"); changed = true; }
+      } else if (params.get("sort") !== sortBy) {
+        params.set("sort", sortBy);
+        changed = true;
+      }
+
+      if (changed) {
+        setSearchParams(params, { replace: true });
+      }
+    }, 500);
+
+    return () => clearTimeout(handler);
+  }, [selectedCategory, searchQuery, sortBy, setSearchParams]);
 
   const handleCategoryChange = (cat: string) => {
     setSelectedCategory(cat);
