@@ -4,7 +4,11 @@ import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
-import { Package, Plus, Edit, Trash2, Loader2, PackageOpen } from "lucide-react";
+import { Package, Plus, Edit, Trash2, Loader2, PackageOpen, TrendingUp, ShoppingBag, AlertTriangle } from "lucide-react";
+import { 
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
+  BarChart, Bar, PieChart, Pie, Cell, Legend 
+} from 'recharts';
 
 interface Product {
   _id: string;
@@ -15,9 +19,11 @@ interface Product {
   images: string[];
 }
 
+const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
+
 const SellerDashboard = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [orders, setOrders] = useState<any[]>([]);
+  const [analytics, setAnalytics] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const { user, token } = useAuth();
   const navigate = useNavigate();
@@ -29,22 +35,22 @@ const SellerDashboard = () => {
       return;
     }
 
-    Promise.all([fetchProducts(), fetchOrders()]).finally(() => setLoading(false));
+    Promise.all([fetchProducts(), fetchAnalytics()]).finally(() => setLoading(false));
   }, [user, navigate]);
 
-  const fetchOrders = async () => {
+  const fetchAnalytics = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/orders/seller`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/orders/analytics`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
       const data = await response.json();
       if (response.ok) {
-        setOrders(data);
+        setAnalytics(data);
       }
     } catch (error) {
-      console.error("Failed to fetch orders for analytics:", error);
+      console.error("Failed to fetch analytics:", error);
     }
   };
 
@@ -69,30 +75,6 @@ const SellerDashboard = () => {
       });
     }
   };
-
-  const calculateMetrics = () => {
-    const activeProducts = products.length;
-    
-    let totalRevenue = 0;
-    let pendingItems = 0;
-
-    orders.forEach(order => {
-      order.items.forEach((item: any) => {
-        if (item.sellerId === user?._id) {
-          if (item.status !== 'cancelled') {
-            totalRevenue += item.priceAtPurchase * item.quantity;
-          }
-          if (item.status === 'pending' || !item.status) {
-            pendingItems++;
-          }
-        }
-      });
-    });
-
-    return { activeProducts, totalRevenue, pendingItems };
-  };
-
-  const metrics = calculateMetrics();
 
   const handleDelete = async (id: string) => {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
@@ -124,15 +106,17 @@ const SellerDashboard = () => {
     }
   };
 
+  const summary = analytics?.summary || { totalRevenue: 0, totalOrders: 0, activeOrders: 0 };
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
       
-      <main className="container mx-auto px-4 py-12">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
+      <main className="container mx-auto px-4 py-8">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
           <div>
             <h1 className="font-display text-4xl font-semibold mb-2">Seller Dashboard</h1>
-            <p className="text-muted-foreground">Manage your product inventory and sales.</p>
+            <p className="text-muted-foreground">Monitor performance and manage your inventory.</p>
           </div>
           <div className="flex gap-4">
             <Button 
@@ -152,28 +136,133 @@ const SellerDashboard = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        {/* Summary Tiles */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <div className="bg-card border border-border rounded-sm p-6 shadow-sm">
-            <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1 block">Total Revenue</span>
-            <div className="flex items-end justify-between">
-              <span className="text-3xl font-semibold">₹{metrics.totalRevenue.toFixed(2)}</span>
-              <span className="text-xs text-green-600 font-medium">+12% from last month</span>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Total Revenue</span>
+              <TrendingUp size={16} className="text-green-500" />
             </div>
+            <span className="text-3xl font-semibold">₹{summary.totalRevenue.toFixed(2)}</span>
           </div>
           <div className="bg-card border border-border rounded-sm p-6 shadow-sm">
-            <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1 block">Active Products</span>
-            <div className="flex items-end justify-between">
-              <span className="text-3xl font-semibold">{metrics.activeProducts}</span>
-              <span className="text-xs text-muted-foreground">Listings online</span>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Total Orders</span>
+              <ShoppingBag size={16} className="text-blue-500" />
             </div>
+            <span className="text-3xl font-semibold">{summary.totalOrders}</span>
           </div>
           <div className="bg-card border border-border rounded-sm p-6 shadow-sm">
-            <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1 block">Pending Items</span>
-            <div className="flex items-end justify-between">
-              <span className="text-3xl font-semibold">{metrics.pendingItems}</span>
-              <span className="text-xs text-amber-600 font-medium">Require shipping</span>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Active Orders</span>
+              <Package size={16} className="text-amber-500" />
+            </div>
+            <span className="text-3xl font-semibold">{summary.activeOrders}</span>
+          </div>
+          <div className="bg-card border border-border rounded-sm p-6 shadow-sm">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Low Stock Items</span>
+              <AlertTriangle size={16} className="text-red-500" />
+            </div>
+            <span className="text-3xl font-semibold">{analytics?.lowStockItems?.length || 0}</span>
+          </div>
+        </div>
+
+        {/* Analytics Charts */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+          {/* Sales Over Time */}
+          <div className="bg-card border border-border rounded-sm p-6 shadow-sm h-[400px]">
+            <h3 className="text-lg font-medium mb-6">Sales Revenue (Last 30 Days)</h3>
+            <div className="h-[300px] w-full">
+              {analytics?.salesOverTime?.length > 0 ? (
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={analytics.salesOverTime}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                    <XAxis 
+                      dataKey="_id" 
+                      tick={{fontSize: 12}} 
+                      tickFormatter={(value) => value.split('-').slice(1).join('/')}
+                    />
+                    <YAxis tick={{fontSize: 12}} />
+                    <Tooltip 
+                      contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))' }}
+                      formatter={(value: any) => [`₹${value.toFixed(2)}`, 'Revenue']}
+                    />
+                    <Line type="monotone" dataKey="revenue" stroke="#3b82f6" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+                  </LineChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="h-full flex items-center justify-center text-muted-foreground">
+                  No sales data available for this period
+                </div>
+              )}
             </div>
           </div>
+
+          {/* Category Breakdown */}
+          <div className="bg-card border border-border rounded-sm p-6 shadow-sm h-[400px]">
+            <h3 className="text-lg font-medium mb-6">Sales by Category</h3>
+            <div className="h-[300px] w-full">
+              {analytics?.categoryBreakdown?.length > 0 ? (
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={analytics.categoryBreakdown}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={60}
+                      outerRadius={80}
+                      paddingAngle={5}
+                      dataKey="sales"
+                      nameKey="_id"
+                    >
+                      {analytics.categoryBreakdown.map((entry: any, index: number) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip 
+                      contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))' }}
+                      formatter={(value: any) => [`₹${value.toFixed(2)}`, 'Sales']}
+                    />
+                    <Legend verticalAlign="bottom" height={36}/>
+                  </PieChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="h-full flex items-center justify-center text-muted-foreground">
+                  No category data available
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Low Stock Levels Bar Chart */}
+          <div className="bg-card border border-border rounded-sm p-6 shadow-sm h-[400px] md:col-span-2">
+            <h3 className="text-lg font-medium mb-6">Inventory Status (Low Stock Items)</h3>
+            <div className="h-[300px] w-full">
+              {analytics?.lowStockItems?.length > 0 ? (
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={analytics.lowStockItems}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                    <XAxis dataKey="title" tick={{fontSize: 12}} />
+                    <YAxis tick={{fontSize: 12}} />
+                    <Tooltip 
+                       contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))' }}
+                    />
+                    <Bar dataKey="stock" fill="#f59e0b" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="h-full flex items-center justify-center text-muted-foreground">
+                  All items are well-stocked. Great job!
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-6 flex items-center justify-between">
+            <h2 className="text-2xl font-semibold">All Products</h2>
+            <span className="text-sm text-muted-foreground">{products.length} products listed</span>
         </div>
 
         {loading ? (
@@ -199,7 +288,7 @@ const SellerDashboard = () => {
           </div>
         ) : (
           <div className="grid gap-6">
-            <div className="bg-card border border-border rounded-sm overflow-hidden">
+            <div className="bg-card border border-border rounded-sm overflow-hidden shadow-sm">
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="border-b border-border bg-muted/50">

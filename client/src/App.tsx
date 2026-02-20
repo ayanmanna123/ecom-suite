@@ -19,6 +19,7 @@ import SellerOrders from "./pages/SellerOrders";
 import Wishlist from "./pages/Wishlist";
 import Addresses from "./pages/Addresses";
 import Settings from "./pages/Settings";
+import CompleteProfile from "./pages/CompleteProfile";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -46,6 +47,7 @@ const App = () => (
               <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/addresses" element={<Addresses />} />
               <Route path="/settings" element={<Settings />} />
+              <Route path="/complete-profile" element={<CompleteProfile />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

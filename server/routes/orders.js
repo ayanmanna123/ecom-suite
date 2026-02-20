@@ -1,5 +1,6 @@
 import express from 'express';
 import Order from '../models/Order.js';
+import Product from '../models/Product.js';
 import auth, { authorize, maybeAuth } from '../middleware/auth.js';
 
 const router = express.Router();
@@ -52,6 +53,99 @@ router.get('/seller', auth, authorize('seller'), async (req, res) => {
         // but for now, showing the full order is probably more useful for context.
 
         res.json(orders);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ msg: 'Server Error' });
+    }
+});
+
+// @route   GET /api/orders/analytics
+// @desc    Get aggregated analytics for seller
+// @access  Private/Seller
+router.get('/analytics', auth, authorize('seller'), async (req, res) => {
+    try {
+        const sellerId = req.user._id;
+
+        // 1. Sales over time (Daily Revenue for last 30 days)
+        const thirtyDaysAgo = new Date();
+        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+        const salesOverTime = await Order.aggregate([
+            {
+                $match: {
+                    'items.sellerId': sellerId,
+                    createdAt: { $gte: thirtyDaysAgo }
+                }
+            },
+            { $unwind: '$items' },
+            { $match: { 'items.sellerId': sellerId, 'items.status': { $ne: 'cancelled' } } },
+            {
+                $group: {
+                    _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+                    revenue: { $sum: { $multiply: ["$items.priceAtPurchase", "$items.quantity"] } }
+                }
+            },
+            { $sort: { _id: 1 } }
+        ]);
+
+        // 2. Category Breakdown
+        const categoryBreakdown = await Order.aggregate([
+            { $match: { 'items.sellerId': sellerId, 'items.status': { $ne: 'cancelled' } } },
+            { $unwind: '$items' },
+            { $match: { 'items.sellerId': sellerId } },
+            { $addFields: { productIdObj: { $toObjectId: "$items.productId" } } },
+            {
+                $lookup: {
+                    from: 'products',
+                    localField: 'productIdObj',
+                    foreignField: '_id',
+                    as: 'productDetails'
+                }
+            },
+            { $unwind: '$productDetails' },
+            {
+                $group: {
+                    _id: '$productDetails.category',
+                    sales: { $sum: { $multiply: ["$items.priceAtPurchase", "$items.quantity"] } }
+                }
+            }
+        ]);
+
+        // 3. Low Stock Items
+        const lowStockItems = await Product.find({
+            seller: sellerId,
+            stock: { $lte: 5 }
+        }).select('title stock').limit(5);
+
+        // 4. Summary metrics
+        const summary = await Order.aggregate([
+            { $match: { 'items.sellerId': sellerId } },
+            { $unwind: '$items' },
+            { $match: { 'items.sellerId': sellerId } },
+            {
+                $group: {
+                    _id: null,
+                    totalRevenue: { $sum: { $cond: [{ $ne: ["$items.status", "cancelled"] }, { $multiply: ["$items.priceAtPurchase", "$items.quantity"] }, 0] } },
+                    totalOrders: { $addToSet: "$_id" },
+                    activeOrders: { $sum: { $cond: [{ $in: ["$items.status", ["pending", "processing", "shipped"]] }, 1, 0] } }
+                }
+            },
+            {
+                $project: {
+                    totalRevenue: 1,
+                    totalOrders: { $size: "$totalOrders" },
+                    activeOrders: 1
+                }
+            }
+        ]);
+
+        res.json({
+            salesOverTime,
+            categoryBreakdown,
+            lowStockItems,
+            summary: summary[0] || { totalRevenue: 0, totalOrders: 0, activeOrders: 0 }
+        });
+
     } catch (err) {
         console.error(err.message);
         res.status(500).json({ msg: 'Server Error' });

@@ -13,7 +13,8 @@ interface AuthContextType {
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string, name: string, role?: 'customer' | 'seller') => Promise<void>;
-  googleLogin: (idToken: string) => Promise<void>;
+  googleLogin: (idToken: string) => Promise<{ isNew: boolean }>;
+  updateRole: (role: 'customer' | 'seller') => Promise<void>;
   signOut: () => void;
 }
 
@@ -80,6 +81,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setUser(data.user);
     localStorage.setItem('token', data.token);
     localStorage.setItem('user', JSON.stringify(data.user));
+    return { isNew: data.isNew };
+  };
+
+  const updateRole = async (role: 'customer' | 'seller') => {
+    if (!token) throw new Error('Not authenticated');
+    
+    const response = await fetch(`${API_URL}/auth/role`, {
+      method: 'PUT',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ role }),
+    });
+    
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || 'Failed to update role');
+    
+    setUser(data);
+    localStorage.setItem('user', JSON.stringify(data));
   };
 
   const signOut = () => {
@@ -90,7 +111,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, loading, login, register, googleLogin, signOut }}>
+    <AuthContext.Provider value={{ user, token, loading, login, register, googleLogin, updateRole, signOut }}>
       {children}
     </AuthContext.Provider>
   );
