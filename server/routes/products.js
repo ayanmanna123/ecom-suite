@@ -5,13 +5,60 @@ import auth, { authorize } from '../middleware/auth.js';
 const router = express.Router();
 
 // @route   GET /api/products
-// @desc    Get all products
+// @desc    Get all products with filtering, search and sort
 // @access  Public
 router.get('/', async (req, res) => {
     try {
-        const products = await Product.find().populate('seller', 'name email');
+        const { search, category, minPrice, maxPrice, sort } = req.query;
+        let query = {};
+
+        // Search filter
+        if (search) {
+            query.$or = [
+                { title: { $regex: search, $options: 'i' } },
+                { description: { $regex: search, $options: 'i' } }
+            ];
+        }
+
+        // Category filter
+        if (category && category !== 'All') {
+            query.category = category;
+        }
+
+        // Price range filter
+        if (minPrice || maxPrice) {
+            query.price = {};
+            if (minPrice) query.price.$gte = Number(minPrice);
+            if (maxPrice) query.price.$lte = Number(maxPrice);
+        }
+
+        let productsQuery = Product.find(query).populate('seller', 'name email');
+
+        // Sorting
+        if (sort) {
+            switch (sort) {
+                case 'price-low':
+                    productsQuery = productsQuery.sort({ price: 1 });
+                    break;
+                case 'price-high':
+                    productsQuery = productsQuery.sort({ price: -1 });
+                    break;
+                case 'rating':
+                    productsQuery = productsQuery.sort({ rating: -1 });
+                    break;
+                case 'newest':
+                    productsQuery = productsQuery.sort({ createdAt: -1 });
+                    break;
+                default:
+                    // Default sorting (featured/default)
+                    break;
+            }
+        }
+
+        const products = await productsQuery;
         res.json(products);
     } catch (err) {
+        console.error(err.message);
         res.status(500).json({ msg: 'Server Error' });
     }
 });

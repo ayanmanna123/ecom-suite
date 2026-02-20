@@ -20,14 +20,23 @@ const PORT = process.env.PORT || 5000;
 const allowedOrigins = [
     'https://ecom-suite-ten.vercel.app',
     'http://localhost:5173',
-    'http://localhost:8080'
+    'http://localhost:8080',
+    'http://localhost:5174',
+    'http://127.0.0.1:5173',
+    'http://127.0.0.1:8080'
 ];
 
 app.use(cors({
     origin: function (origin, callback) {
         // allow requests with no origin (like mobile apps or curl requests)
         if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) === -1) {
+
+        const isAllowed = allowedOrigins.indexOf(origin) !== -1 ||
+            origin.startsWith('http://localhost:') ||
+            origin.startsWith('http://127.0.0.1:');
+
+        if (!isAllowed) {
+            console.log('Blocked Origin:', origin);
             var msg = 'The CORS policy for this site does not ' +
                 'allow access from the specified Origin.';
             return callback(new Error(msg), false);
