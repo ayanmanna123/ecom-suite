@@ -27,16 +27,6 @@ router.post('/', auth, async (req, res) => {
 
         await newReview.save();
 
-        // Update Product rating and reviewCount
-        const product = await Product.findById(productId);
-        if (product) {
-            const reviews = await Review.find({ product: productId });
-            const totalRating = reviews.reduce((acc, item) => item.rating + acc, 0);
-            product.rating = totalRating / reviews.length;
-            product.reviewCount = reviews.length;
-            await product.save();
-        }
-
         res.status(201).json(newReview);
     } catch (err) {
         console.error(err.message);
