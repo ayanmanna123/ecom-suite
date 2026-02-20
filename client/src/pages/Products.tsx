@@ -64,7 +64,7 @@ const Products = () => {
     }
 
     return result;
-  }, [selectedCategory, searchQuery, sortBy]);
+  }, [selectedCategory, searchQuery, sortBy, productsList]);
 
   const handleCategoryChange = (cat: string) => {
     setSelectedCategory(cat);
