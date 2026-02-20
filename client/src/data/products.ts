@@ -15,11 +15,15 @@ export interface Product {
 
 export const categories = [
   "All",
+  "Electronics",
   "Bags",
   "Accessories",
   "Clothing",
   "Shoes",
   "Home",
+  "Books",
+  "Sports",
+  "Beauty",
 ];
 
 export const products: Product[] = [
