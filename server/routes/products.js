@@ -18,7 +18,12 @@ router.get('/', async (req, res) => {
 
         // Category filter (comes before search to allow narrowing)
         if (category && category !== 'All') {
-            query.category = category;
+            const categories = category.split(',');
+            if (categories.length > 1) {
+                query.category = { $in: categories };
+            } else {
+                query.category = category;
+            }
         }
 
         // Search filter

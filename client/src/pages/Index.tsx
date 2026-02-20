@@ -14,7 +14,7 @@ const Index = () => {
   const [hasMore, setHasMore] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
-  
+
   const lastProductRef = useCallback((node: HTMLDivElement) => {
     if (loading || loadingMore) return;
     if (observerRef.current) observerRef.current.disconnect();
@@ -25,6 +25,31 @@ const Index = () => {
     });
     if (node) observerRef.current.observe(node);
   }, [loading, loadingMore, hasMore]);
+
+  const [recommendedProducts, setRecommendedProducts] = useState<Product[]>([]);
+  const [loadingRecommended, setLoadingRecommended] = useState(false);
+
+  const fetchRecommended = useCallback(async () => {
+    const interestsJson = localStorage.getItem("user_interests");
+    if (!interestsJson) return;
+
+    try {
+      const interests: string[] = JSON.parse(interestsJson);
+      if (interests.length === 0) return;
+
+      setLoadingRecommended(true);
+      const categories = interests.join(",");
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/products?category=${categories}&limit=4`);
+      const data = await response.json();
+      if (response.ok) {
+        setRecommendedProducts(data.products || []);
+      }
+    } catch (error) {
+      console.error("Failed to fetch recommended products:", error);
+    } finally {
+      setLoadingRecommended(false);
+    }
+  }, []);
 
   const fetchProducts = useCallback(async (pageNum: number) => {
     if (pageNum === 1) setLoading(true);
@@ -53,12 +78,40 @@ const Index = () => {
     fetchProducts(page);
   }, [page, fetchProducts]);
 
+  useEffect(() => {
+    fetchRecommended();
+  }, [fetchRecommended]);
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
       <CartDrawer />
 
       <HeroSection />
+
+      {/* Recommended for You Section */}
+      {recommendedProducts.length > 0 && (
+        <section className="container mx-auto px-4 lg:px-8 py-12 border-b border-border">
+          <div className="flex items-end justify-between mb-8">
+            <div>
+              <h2 className="font-display text-2xl md:text-3xl font-semibold text-foreground">Recommended for You</h2>
+              <p className="text-muted-foreground text-sm mt-1">Based on your recent searches</p>
+            </div>
+            <Link
+              to="/products"
+              className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+            >
+              Explore More
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8">
+            {recommendedProducts.map((product, i) => (
+              <ProductCard key={`recommended-${product._id}`} product={product} index={i} />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Products Grid with Infinite Scroll */}
       <section className="container mx-auto px-4 lg:px-8 py-16">

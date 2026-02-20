@@ -51,12 +51,38 @@ const Products = () => {
     return () => clearTimeout(timer);
   }, [fetchProducts]);
 
+  // Track user interests in localStorage
+  const trackInterest = useCallback((category: string) => {
+    if (!category || category === "All") return;
+
+    try {
+      const interestsJson = localStorage.getItem("user_interests");
+      let interests: string[] = interestsJson ? JSON.parse(interestsJson) : [];
+      
+      // Remove if already exists to move it to the front (highest priority)
+      interests = interests.filter(i => i !== category);
+      
+      // Add to the front
+      interests.unshift(category);
+      
+      // Keep only top 5 interests
+      interests = interests.slice(0, 5);
+      
+      localStorage.setItem("user_interests", JSON.stringify(interests));
+    } catch (error) {
+      console.error("Failed to track interest:", error);
+    }
+  }, []);
+
   // Sync URL params to State (Immediate)
   useEffect(() => {
-    if (categoryParam !== selectedCategory) setSelectedCategory(categoryParam);
+    if (categoryParam !== selectedCategory) {
+      setSelectedCategory(categoryParam);
+      trackInterest(categoryParam);
+    }
     if (searchParam !== searchQuery) setSearchQuery(searchParam);
     if (sortParam !== sortBy) setSortBy(sortParam);
-  }, [categoryParam, searchParam, sortParam]);
+  }, [categoryParam, searchParam, sortParam, selectedCategory, trackInterest]);
 
   // Sync State to URL (Debounced to avoid jitter)
   useEffect(() => {

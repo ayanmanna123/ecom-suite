@@ -1,14 +1,19 @@
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import mongoose from 'mongoose';
 import Product from './models/Product.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-const MONGODB_URI = process.env.MONGODB_URI;
-const SELLER_ID = '6997657bc4bf33d3288c03dc'; // Existing seller ID from DB
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const products = [
-    // Original 8
+const MONGODB_URI = process.env.MONGODB_URI;
+const SELLER_ID = '6997657bc4bf33d3288c03dc';
+
+const previousProducts = [
     {
         title: "Artisan Leather Crossbody",
         description: "Hand-stitched Italian leather crossbody bag with brass hardware. A timeless piece crafted for everyday elegance.",
@@ -103,7 +108,6 @@ const products = [
         badge: "Sale",
         seller: SELLER_ID
     },
-    // 12 New Products
     {
         title: "Minimalist Canvas Backpack",
         description: "Durable water-resistant canvas backpack with leather accents. Features a padded laptop sleeve.",
@@ -247,11 +251,37 @@ async function seed() {
         await mongoose.connect(MONGODB_URI);
         console.log('Connected to MongoDB');
 
+        // Read products from JSON file
+        const productsPath = path.join(__dirname, '..', 'client', 'products.json');
+        console.log(`Reading products from: ${productsPath}`);
+
+        const rawData = fs.readFileSync(productsPath, 'utf8');
+        const productsData = JSON.parse(rawData);
+
+        // Process data to handle MongoDB Extended JSON ($oid and $date)
+        const processedProducts = productsData.map(product => {
+            const p = { ...product };
+
+            // Handle seller $oid
+            if (p.seller && p.seller.$oid) {
+                p.seller = p.seller.$oid;
+            }
+
+            // Handle createdAt $date
+            if (p.createdAt && p.createdAt.$date) {
+                p.createdAt = new Date(p.createdAt.$date);
+            }
+
+            return p;
+        });
+
+        const allProducts = [...previousProducts, ...processedProducts];
+
         await Product.deleteMany({});
         console.log('Cleared existing products');
 
-        await Product.insertMany(products);
-        console.log('Seeded 20 sample products successfully!');
+        await Product.insertMany(allProducts);
+        console.log(`Seeded ${allProducts.length} products (Merged) successfully!`);
 
         process.exit(0);
     } catch (error) {
