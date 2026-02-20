@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import { ArrowLeft, Loader2 } from "lucide-react";
+import { GoogleLogin } from '@react-oauth/google';
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -17,7 +18,7 @@ const Auth = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { login, register } = useAuth();
+  const { login, register, googleLogin } = useAuth();
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,11 +40,34 @@ const Auth = () => {
         });
         navigate(role === 'seller' ? "/seller" : "/");
       }
-    } catch (error: any) {
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred";
       toast({
         variant: "destructive",
         title: "Error",
-        description: error.message,
+        description: errorMessage,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleSuccess = async (credentialResponse: { credential?: string }) => {
+    if (!credentialResponse.credential) return;
+    setLoading(true);
+    try {
+      await googleLogin(credentialResponse.credential);
+      toast({
+        title: "Welcome back!",
+        description: "You have successfully signed in with Google.",
+      });
+      navigate("/");
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred";
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: errorMessage,
       });
     } finally {
       setLoading(false);
@@ -162,6 +186,32 @@ const Auth = () => {
               )}
             </Button>
           </form>
+
+          <div className="relative my-8">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-border"></span>
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center w-full">
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={() => {
+                toast({
+                  variant: "destructive",
+                  title: "Error",
+                  description: "Google Login Failed",
+                });
+              }}
+              useOneTap
+              theme="outline"
+              shape="rectangular"
+              width="100%"
+            />
+          </div>
 
           <div className="mt-10 text-center">
             <p className="text-sm text-muted-foreground">

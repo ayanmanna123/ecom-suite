@@ -13,6 +13,7 @@ interface AuthContextType {
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string, name: string, role?: 'customer' | 'seller') => Promise<void>;
+  googleLogin: (idToken: string) => Promise<void>;
   signOut: () => void;
 }
 
@@ -65,6 +66,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.setItem('user', JSON.stringify(data.user));
   };
 
+  const googleLogin = async (idToken: string) => {
+    const response = await fetch(`${API_URL}/auth/google`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ idToken }),
+    });
+    
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || 'Google login failed');
+    
+    setToken(data.token);
+    setUser(data.user);
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('user', JSON.stringify(data.user));
+  };
+
   const signOut = () => {
     setToken(null);
     setUser(null);
@@ -73,7 +90,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, loading, login, register, signOut }}>
+    <AuthContext.Provider value={{ user, token, loading, login, register, googleLogin, signOut }}>
       {children}
     </AuthContext.Provider>
   );
