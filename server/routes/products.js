@@ -9,7 +9,10 @@ const router = express.Router();
 // @access  Public
 router.get('/', async (req, res) => {
     try {
-        const { search, category, minPrice, maxPrice, sort } = req.query;
+        const { search, category, minPrice, maxPrice, sort, page = 1, limit = 12 } = req.query;
+        const skip = (parseInt(page) - 1) * parseInt(limit);
+        const limitValue = parseInt(limit);
+
         // Initial query object
         let query = {};
 
@@ -22,14 +25,7 @@ router.get('/', async (req, res) => {
         if (search) {
             const searchRegex = { $regex: search, $options: 'i' };
 
-            // If category matches search, we want all items in that category 
-            // OR items that match search in title/desc even if in other categories
-            // (But if category is already set, we usually want to search WITHIN it)
-
             if (query.category) {
-                // Searching WITHIN a category
-                // We'll search title/desc, but if the search term matches the category name,
-                // we should effectively show the whole category unless searching for something specific.
                 if (search.toLowerCase() !== category.toLowerCase()) {
                     query.$or = [
                         { title: searchRegex },
@@ -37,7 +33,6 @@ router.get('/', async (req, res) => {
                     ];
                 }
             } else {
-                // Global search
                 query.$or = [
                     { title: searchRegex },
                     { description: searchRegex },
@@ -45,8 +40,6 @@ router.get('/', async (req, res) => {
                 ];
             }
         }
-
-        console.log('Final Search Query:', JSON.stringify(query, null, 2));
 
         // Price range filter
         if (minPrice || maxPrice) {
@@ -73,13 +66,21 @@ router.get('/', async (req, res) => {
                     productsQuery = productsQuery.sort({ createdAt: -1 });
                     break;
                 default:
-                    // Default sorting (featured/default)
                     break;
             }
         }
 
-        const products = await productsQuery;
-        res.json(products);
+        // Pagination
+        const total = await Product.countDocuments(query);
+        const products = await productsQuery.skip(skip).limit(limitValue);
+
+        res.json({
+            products,
+            total,
+            page: parseInt(page),
+            pages: Math.ceil(total / limitValue),
+            hasMore: skip + products.length < total
+        });
     } catch (err) {
         console.error(err.message);
         res.status(500).json({ msg: 'Server Error' });

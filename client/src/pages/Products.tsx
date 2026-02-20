@@ -34,7 +34,7 @@ const Products = () => {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/products?${params.toString()}`);
       const data = await response.json();
       if (response.ok) {
-        setProductsList(data);
+        setProductsList(data.products || []);
       }
     } catch (error) {
       console.error("Failed to fetch products:", error);
