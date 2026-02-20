@@ -22,8 +22,8 @@ const Navbar = () => {
         </button>
 
         {/* Logo */}
-        <Link to="/" className="font-display text-xl font-semibold tracking-tight text-foreground">
-          MAISON
+        <Link to="/" className="flex items-center gap-2">
+          <img src="/logo.png" alt="MAISON" className="h-8 w-auto object-contain" />
         </Link>
 
         {/* Desktop Navigation */}

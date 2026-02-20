@@ -92,7 +92,7 @@ const Index = () => {
         <div className="container mx-auto px-4 lg:px-8 py-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div>
-              <h3 className="font-display text-lg font-semibold text-foreground mb-4">MAISON</h3>
+              <img src="/logo.png" alt="MAISON" className="h-8 w-auto object-contain mb-4" />
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Curating beautiful objects for thoughtful living.
               </p>
