@@ -59,7 +59,7 @@ router.post('/google', async (req, res) => {
             audience: process.env.GOOGLE_CLIENT_ID
         });
 
-        const { email, name, sub: googleId } = ticket.getPayload();
+        const { email, name, sub: googleId, picture } = ticket.getPayload();
 
         let user = await User.findOne({
             $or: [
@@ -70,11 +70,17 @@ router.post('/google', async (req, res) => {
 
         let isNew = false;
         if (user) {
-            // Update googleId if it's a legacy email user
+            // Update googleId and picture if it's a legacy email user or if picture changed
+            let updated = false;
             if (!user.googleId) {
                 user.googleId = googleId;
-                await user.save();
+                updated = true;
             }
+            if (picture && user.picture !== picture) {
+                user.picture = picture;
+                updated = true;
+            }
+            if (updated) await user.save();
         } else {
             // Create new user
             isNew = true;
@@ -82,6 +88,7 @@ router.post('/google', async (req, res) => {
                 email,
                 name,
                 googleId,
+                picture,
                 role: 'customer' // Default to customer for Google sign-ups
             });
             await user.save();
