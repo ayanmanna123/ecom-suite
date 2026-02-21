@@ -97,8 +97,12 @@ router.post('/google', async (req, res) => {
         const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET, { expiresIn: '7d' });
         res.send({ user, token, isNew });
     } catch (error) {
-        console.error('Google auth error:', error);
-        res.status(400).send({ error: 'Google authentication failed' });
+        console.error('Google auth error detailed:', error);
+        res.status(400).send({
+            error: 'Google authentication failed',
+            details: error.message,
+            reason: error.reason || 'Token verification failed or missing payload'
+        });
     }
 });
 
