@@ -19,7 +19,8 @@ router.post('/', maybeAuth, async (req, res) => {
             userId,
             items,
             totalAmount,
-            shippingAddress
+            shippingAddress,
+            statusHistory: [{ status: 'pending', message: 'Order placed successfully' }]
         });
 
         await order.save();
@@ -187,6 +188,10 @@ router.patch('/:orderId/item/:productId/status', auth, authorize('seller'), asyn
 
         item.status = status;
 
+        // Add to status history if the whole order status changed or just provide item level update
+        // For simplicity, we'll track the top-level order status changes in history
+        const oldStatus = order.status;
+
         // Recalculate top-level order status
         const itemStatuses = order.items.map(i => i.status || 'pending');
 
@@ -200,6 +205,30 @@ router.patch('/:orderId/item/:productId/status', auth, authorize('seller'), asyn
             order.status = 'processing';
         } else if (itemStatuses.some(s => s === 'shipped')) {
             order.status = 'shipped';
+        }
+
+        if (oldStatus !== order.status) {
+            let message = `Order status changed to ${order.status}`;
+            if (order.status === 'shipped') message = 'Your item has been shipped.';
+            if (order.status === 'delivered') message = 'Your item has been delivered.';
+
+            order.statusHistory.push({
+                status: order.status,
+                timestamp: new Date(),
+                message: message
+            });
+        }
+
+        // Handle tracking info if provided (optional check)
+        if (req.body.trackingInfo) {
+            order.trackingInfo = req.body.trackingInfo;
+            if (order.status === 'shipped' && !order.statusHistory.find(h => h.message?.includes(req.body.trackingInfo.trackingNumber))) {
+                order.statusHistory.push({
+                    status: 'shipped',
+                    timestamp: new Date(),
+                    message: `${req.body.trackingInfo.carrier} - ${req.body.trackingInfo.trackingNumber}`
+                });
+            }
         }
 
         await order.save();

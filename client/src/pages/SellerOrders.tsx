@@ -37,7 +37,7 @@ const SellerOrders = () => {
     }
   }, [token]);
 
-  const handleStatusUpdate = async (orderId: string, productId: string, status: string) => {
+  const handleStatusUpdate = async (orderId: string, productId: string, status: string, trackingInfo?: { carrier: string, trackingNumber: string }) => {
     setUpdatingId(`${orderId}-${productId}`);
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/orders/${orderId}/item/${productId}/status`, {
@@ -46,7 +46,7 @@ const SellerOrders = () => {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`,
         },
-        body: JSON.stringify({ status }),
+        body: JSON.stringify({ status, trackingInfo }),
       });
 
       if (response.ok) {
@@ -61,7 +61,8 @@ const SellerOrders = () => {
               ...order,
               items: order.items.map((item: any) => 
                 item.productId === productId ? { ...item, status } : item
-              )
+              ),
+              trackingInfo: trackingInfo || order.trackingInfo
             };
           }
           return order;
@@ -179,13 +180,37 @@ const SellerOrders = () => {
                               <option value="delivered">Delivered</option>
                               <option value="cancelled">Cancelled</option>
                             </select>
+                            
+                            <div className="flex flex-col gap-2 flex-[2]">
+                                <input 
+                                    type="text" 
+                                    placeholder="Carrier (e.g. FedEx)" 
+                                    className="bg-muted text-xs border-0 rounded-sm px-2 py-1.5 focus:ring-1 focus:ring-primary outline-none"
+                                    id={`carrier-${order._id}-${item.productId}`}
+                                    defaultValue={order.trackingInfo?.carrier}
+                                />
+                                <input 
+                                    type="text" 
+                                    placeholder="Tracking Number" 
+                                    className="bg-muted text-xs border-0 rounded-sm px-2 py-1.5 focus:ring-1 focus:ring-primary outline-none"
+                                    id={`tracking-${order._id}-${item.productId}`}
+                                    defaultValue={order.trackingInfo?.trackingNumber}
+                                />
+                            </div>
+
                             <Button 
                               size="sm" 
-                              className="h-8 rounded-sm gap-1.5 px-3"
+                              className="h-full rounded-sm gap-1.5 px-3"
                               disabled={updatingId === `${order._id}-${item.productId}`}
                               onClick={() => {
                                 const select = document.getElementById(`status-${order._id}-${item.productId}`) as HTMLSelectElement;
-                                handleStatusUpdate(order._id, item.productId, select.value);
+                                const carrier = document.getElementById(`carrier-${order._id}-${item.productId}`) as HTMLInputElement;
+                                const tracking = document.getElementById(`tracking-${order._id}-${item.productId}`) as HTMLInputElement;
+                                
+                                handleStatusUpdate(order._id, item.productId, select.value, {
+                                    carrier: carrier.value,
+                                    trackingNumber: tracking.value
+                                });
                               }}
                             >
                               {updatingId === `${order._id}-${item.productId}` ? (

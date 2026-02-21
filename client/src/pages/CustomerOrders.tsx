@@ -1,8 +1,10 @@
 import { useNavigate, Navigate, Link } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import Navbar from "@/components/Navbar";
-import { Package, ArrowLeft, Loader2, Calendar, CreditCard, ChevronRight } from "lucide-react";
+import { Package, ArrowLeft, Loader2, Calendar, CreditCard, ChevronRight, Truck } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import DeliveryTimeline from "@/components/DeliveryTimeline";
 
 interface Order {
   _id: string;
@@ -10,6 +12,11 @@ interface Order {
   status: string;
   createdAt: string;
   items: any[];
+  statusHistory?: any[];
+  trackingInfo?: {
+    carrier: string;
+    trackingNumber: string;
+  };
 }
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
@@ -125,7 +132,41 @@ const CustomerOrders = () => {
                           ))}
                         </div>
                         
-                        <div className="flex justify-end">
+                        <div className="flex justify-end gap-3">
+                            <Dialog>
+                                <DialogTrigger asChild>
+                                    <button className="text-xs font-semibold uppercase tracking-widest flex items-center gap-2 text-primary hover:text-primary/80 transition-colors">
+                                        <Truck size={14} /> Track Order
+                                    </button>
+                                </DialogTrigger>
+                                <DialogContent className="sm:max-w-[500px] h-[80vh] overflow-y-auto">
+                                    <DialogHeader>
+                                        <DialogTitle className="font-display uppercase tracking-widest">Delivery Details</DialogTitle>
+                                    </DialogHeader>
+                                    <div className="mt-4">
+                                        <div className="flex items-center justify-between mb-6 p-4 bg-muted/30 rounded-sm border border-border">
+                                            <div>
+                                                <p className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">Order ID</p>
+                                                <p className="text-sm font-mono font-medium">#{order._id}</p>
+                                            </div>
+                                            {order.trackingInfo?.trackingNumber && (
+                                                <div className="text-right">
+                                                    <p className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">{order.trackingInfo.carrier}</p>
+                                                    <p className="text-sm font-medium">{order.trackingInfo.trackingNumber}</p>
+                                                </div>
+                                            )}
+                                        </div>
+                                        
+                                        <DeliveryTimeline 
+                                            history={order.statusHistory || [
+                                                { status: order.status, timestamp: order.createdAt, message: 'Order status: ' + order.status }
+                                            ]} 
+                                            currentStatus={order.status} 
+                                        />
+                                    </div>
+                                </DialogContent>
+                            </Dialog>
+
                             <button className="text-xs font-semibold uppercase tracking-widest flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors group-hover:translate-x-1 duration-300">
                                 View Details <ChevronRight size={14} />
                             </button>
