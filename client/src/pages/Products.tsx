@@ -82,7 +82,7 @@ const Products = () => {
     }
     if (searchParam !== searchQuery) setSearchQuery(searchParam);
     if (sortParam !== sortBy) setSortBy(sortParam);
-  }, [categoryParam, searchParam, sortParam, selectedCategory, trackInterest]);
+  }, [categoryParam, searchParam, sortParam, trackInterest]);
 
   // Sync State to URL (Debounced to avoid jitter)
   useEffect(() => {

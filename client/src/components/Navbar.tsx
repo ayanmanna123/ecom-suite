@@ -70,7 +70,7 @@ const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
-      <nav className="container mx-auto flex items-center justify-between h-16 px-4 lg:px-8">
+      <nav className="container mx-auto flex items-center justify-between h-20 px-4 lg:px-8">
         {/* Mobile menu button */}
         <button
           className="lg:hidden p-2 -ml-2 text-foreground"
@@ -82,7 +82,7 @@ const Navbar = () => {
 
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-          <img src="/logo.png" alt="MAISON" className="h-14 w-auto object-contain" />
+          <img src="/logo.svg" alt="MAISON" className="h-16 w-auto object-contain transition-transform hover:scale-105" />
         </Link>
 
         {/* Desktop Navigation */}
@@ -211,7 +211,7 @@ const Navbar = () => {
           {/* Drawer */}
           <div className="fixed left-0 top-0 z-50 h-full w-[280px] bg-background border-r border-border animate-slide-in-left flex flex-col lg:hidden">
             <div className="flex items-center justify-between p-4 border-b border-border">
-              <img src="/logo.png" alt="MAISON" className="h-10 w-auto object-contain" />
+              <img src="/logo.svg" alt="MAISON" className="h-12 w-auto object-contain" />
               <button 
                 onClick={() => setMobileMenuOpen(false)}
                 className="p-2 text-muted-foreground hover:text-foreground transition-colors"
