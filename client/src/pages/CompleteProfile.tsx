@@ -101,7 +101,7 @@ const CompleteProfile = () => {
       </main>
 
       <footer className="py-12 text-center border-t border-border mt-auto">
-        <img src="/logo.png" alt="MAISON" className="h-8 w-auto object-contain mx-auto mb-2 opacity-50" />
+        <img src="/logo.svg" alt="MAISON" className="h-12 w-auto object-contain mx-auto mb-2 opacity-50" />
         <p className="text-xs text-muted-foreground">© 2026 MAISON. All rights reserved.</p>
       </footer>
     </div>
