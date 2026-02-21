@@ -87,8 +87,8 @@ router.get('/', async (req, res) => {
             hasMore: skip + products.length < total
         });
     } catch (err) {
-        console.error(err.message);
-        res.status(500).json({ msg: 'Server Error' });
+        console.error('Error in GET /api/products:', err);
+        res.status(500).json({ msg: 'Server Error', error: err.message });
     }
 });
 
@@ -100,7 +100,8 @@ router.get('/seller', auth, authorize('seller'), async (req, res) => {
         const products = await Product.find({ seller: req.user._id });
         res.json(products);
     } catch (err) {
-        res.status(500).json({ msg: 'Server Error' });
+        console.error('Error in GET /api/products/seller:', err);
+        res.status(500).json({ msg: 'Server Error', error: err.message });
     }
 });
 

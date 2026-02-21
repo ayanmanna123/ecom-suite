@@ -19,6 +19,7 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 const allowedOrigins = [
     'https://ecom-suite-ten.vercel.app',
+    'https://ecom-suite-mlu2.vercel.app',
     'http://localhost:5173',
     'http://localhost:8080',
     'http://localhost:5174',
